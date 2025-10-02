@@ -116,30 +116,32 @@
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
+            background: #000000;
         }
         
         /* Custom scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         
         ::-webkit-scrollbar-track {
-            background: #1f2937;
+            background: #000000;
         }
         
         ::-webkit-scrollbar-thumb {
-            background: #4f46e5;
-            border-radius: 4px;
+            background: #333333;
+            border-radius: 3px;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: #6366f1;
+            background: #555555;
         }
         
         /* Smooth transitions */
         * {
             transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 0.2s;
         }
         
         /* Security: Disable text selection */
@@ -177,6 +179,26 @@
             bottom: 0;
             background: transparent;
             z-index: 1;
+        }
+        
+        /* Professional minimal styles */
+        .minimal-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+        }
+        
+        .minimal-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+        
+        .subtle-glow {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.02);
+        }
+        
+        .subtle-glow:hover {
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
@@ -338,19 +360,19 @@
                 }
             ];
 
-            return React.createElement('div', { className: "min-h-screen bg-gray-900 text-white font-inter" }, [
+            return React.createElement('div', { className: "min-h-screen bg-black text-white font-inter" }, [
                 // Navigation
                 React.createElement('nav', {
                     key: 'nav',
                     className: `fixed top-0 w-full z-50 transition-all duration-300 ${
-                        isScrolled ? 'bg-gray-900/80 backdrop-blur-md border-b border-gray-800' : 'bg-transparent'
+                        isScrolled ? 'bg-black/80 backdrop-blur-xl border-b border-white/10' : 'bg-transparent'
                     }`
                 }, 
                     React.createElement('div', { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" },
                         React.createElement('div', { className: "flex justify-between items-center h-16" }, [
                             React.createElement('div', { 
                                 key: 'logo',
-                                className: "text-xl font-bold text-indigo-400 bot-protection" 
+                                className: "text-xl font-bold text-white bot-protection" 
                             }, personalInfo.name || "Loading..."),
                             React.createElement('div', { 
                                 key: 'nav-links',
@@ -367,8 +389,8 @@
                                     onClick: () => scrollToSection(item.id),
                                     className: `flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                                         activeSection === item.id
-                                            ? 'text-indigo-400 bg-indigo-400/10'
-                                            : 'text-gray-300 hover:text-indigo-400 hover:bg-gray-800/50'
+                                            ? 'text-white bg-white/10'
+                                            : 'text-gray-300 hover:text-white hover:bg-white/5'
                                     }`
                                 }, [item.icon, React.createElement('span', { key: 'label' }, item.label)])
                             ))
@@ -385,19 +407,19 @@
                     // Animated Background
                     React.createElement('div', {
                         key: 'bg',
-                        className: "absolute inset-0 opacity-30"
+                        className: "absolute inset-0 opacity-20"
                     }, [
                         React.createElement('div', {
                             key: 'gradient',
-                            className: "absolute inset-0 bg-gradient-to-br from-indigo-900/50 via-purple-900/30 to-gray-900"
+                            className: "absolute inset-0 bg-gradient-to-br from-white/5 via-white/2 to-black"
                         }),
                         React.createElement('div', {
                             key: 'pattern',
                             className: "absolute inset-0",
                             style: {
-                                backgroundImage: `radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.3) 0%, transparent 50%),
-                                                 linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent),
-                                                 linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent)`,
+                                backgroundImage: `radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                                                 linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.02) 25%, rgba(255, 255, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.02) 75%, rgba(255, 255, 255, 0.02) 76%, transparent 77%, transparent),
+                                                 linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.02) 25%, rgba(255, 255, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.02) 75%, rgba(255, 255, 255, 0.02) 76%, transparent 77%, transparent)`,
                                 backgroundSize: '50px 50px'
                             }
                         })
@@ -411,7 +433,7 @@
                             React.createElement('div', {}, [
                                 React.createElement('h1', {
                                     key: 'title',
-                                    className: "text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent bot-protection"
+                                    className: "text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent bot-protection"
                                 }, `Hi, I'm ${personalInfo.name || 'Loading...'}`),
                                 React.createElement('p', {
                                     key: 'subtitle',
@@ -424,7 +446,7 @@
                                 React.createElement('button', {
                                     key: 'cta',
                                     onClick: () => scrollToSection('projects'),
-                                    className: "group inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/25"
+                                    className: "group inline-flex items-center px-8 py-4 bg-white text-black font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-white/10"
                                 }, [
                                     "View My Work",
                                     React.createElement(ChevronDownIcon, {
@@ -442,7 +464,7 @@
                         className: "absolute bottom-8 left-1/2 transform -translate-x-1/2"
                     },
                         React.createElement('div', { className: "animate-bounce" },
-                            React.createElement(ChevronDownIcon, { className: "w-6 h-6 text-gray-400" })
+                            React.createElement(ChevronDownIcon, { className: "w-6 h-6 text-gray-500" })
                         )
                     )
                 ]),
@@ -451,7 +473,7 @@
                 React.createElement('section', {
                     key: 'about',
                     id: 'about',
-                    className: "py-20 bg-gray-800/50"
+                    className: "py-20 bg-white/[0.01]"
                 },
                     React.createElement('div', { className: "max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" },
                         React.createElement(AnimatedSection, {},
@@ -461,7 +483,7 @@
                                     className: "text-4xl font-bold text-center mb-16 text-white"
                                 }, [
                                     "About ",
-                                    React.createElement('span', { key: 'accent', className: "text-indigo-400" }, "Me")
+                                    React.createElement('span', { key: 'accent', className: "text-gray-400" }, "Me")
                                 ]),
                                 React.createElement('div', {
                                     key: 'content',
@@ -485,7 +507,7 @@
                                         }, ["AI Engineer", "Machine Learning", "Deep Learning", "Computer Vision", "NLP"].map((tag) =>
                                             React.createElement('span', {
                                                 key: tag,
-                                                className: "px-4 py-2 bg-indigo-600/20 text-indigo-300 rounded-full text-sm font-medium border border-indigo-500/30"
+                                                className: "px-4 py-2 bg-white/5 text-gray-300 rounded-full text-sm font-medium border border-white/10"
                                             }, tag)
                                         ))
                                     ]),
@@ -495,19 +517,19 @@
                                     }, [
                                         React.createElement('div', {
                                             key: 'main-circle',
-                                            className: "w-80 h-80 mx-auto bg-gradient-to-br from-indigo-600/20 to-purple-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-indigo-500/30"
+                                            className: "w-80 h-80 mx-auto bg-white/5 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/10"
                                         },
                                             React.createElement('div', {
-                                                className: "w-64 h-64 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-6xl font-bold"
+                                                className: "w-64 h-64 bg-gradient-to-br from-white/20 to-white/10 rounded-full flex items-center justify-center text-6xl font-bold text-white"
                                             }, "KM")
                                         ),
                                         React.createElement('div', {
                                             key: 'accent1',
-                                            className: "absolute -top-4 -right-4 w-24 h-24 bg-indigo-600/30 rounded-full animate-pulse"
+                                            className: "absolute -top-4 -right-4 w-24 h-24 bg-white/5 rounded-full animate-pulse"
                                         }),
                                         React.createElement('div', {
                                             key: 'accent2',
-                                            className: "absolute -bottom-4 -left-4 w-16 h-16 bg-purple-600/30 rounded-full animate-pulse delay-1000"
+                                            className: "absolute -bottom-4 -left-4 w-16 h-16 bg-white/10 rounded-full animate-pulse delay-1000"
                                         })
                                     ])
                                 ])
@@ -530,7 +552,7 @@
                                     className: "text-4xl font-bold text-center mb-16 text-white"
                                 }, [
                                     "Featured ",
-                                    React.createElement('span', { key: 'accent', className: "text-indigo-400" }, "Projects")
+                                    React.createElement('span', { key: 'accent', className: "text-gray-400" }, "Projects")
                                 ]),
                                 React.createElement('div', {
                                     key: 'grid',
@@ -538,11 +560,11 @@
                                 }, projects.map((project, index) =>
                                     React.createElement('div', {
                                         key: index,
-                                        className: "group bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 hover:border-indigo-500/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10"
+                                        className: "group minimal-card subtle-glow rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-2"
                                     }, [
                                         React.createElement('h3', {
                                             key: 'title',
-                                            className: "text-xl font-bold mb-4 text-white group-hover:text-indigo-400 transition-colors duration-300"
+                                            className: "text-xl font-bold mb-4 text-white group-hover:text-gray-200 transition-colors duration-300"
                                         }, project.title),
                                         React.createElement('p', {
                                             key: 'desc',
@@ -554,7 +576,7 @@
                                         }, project.technologies.map((tech) =>
                                             React.createElement('span', {
                                                 key: tech,
-                                                className: "px-3 py-1 bg-gray-700/50 text-gray-300 rounded-full text-xs"
+                                                className: "px-3 py-1 bg-white/5 text-gray-300 rounded-full text-xs border border-white/10"
                                             }, tech)
                                         )),
                                         React.createElement('div', {
@@ -566,7 +588,7 @@
                                                 href: project.link,
                                                 target: "_blank",
                                                 rel: "noopener noreferrer nofollow",
-                                                className: "inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors duration-300 text-sm bot-protection"
+                                                className: "inline-flex items-center px-4 py-2 bg-white text-black hover:bg-gray-200 rounded-lg transition-colors duration-300 text-sm bot-protection"
                                             }, [
                                                 React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-4 h-4 mr-2" }),
                                                 "GitHub"
@@ -576,7 +598,7 @@
                                                 href: project.liveLink,
                                                 target: "_blank",
                                                 rel: "noopener noreferrer nofollow",
-                                                className: "inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg transition-colors duration-300 text-sm bot-protection"
+                                                className: "inline-flex items-center px-4 py-2 bg-white/10 text-white hover:bg-white/20 rounded-lg transition-colors duration-300 text-sm bot-protection border border-white/20"
                                             }, [
                                                 React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-4 h-4 mr-2" }),
                                                 "Live Demo"
@@ -593,7 +615,7 @@
                 React.createElement('section', {
                     key: 'skills',
                     id: 'skills',
-                    className: "py-20 bg-gray-800/50"
+                    className: "py-20 bg-white/[0.01]"
                 },
                     React.createElement('div', { className: "max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" },
                         React.createElement(AnimatedSection, {},
@@ -603,7 +625,7 @@
                                     className: "text-4xl font-bold text-center mb-16 text-white"
                                 }, [
                                     "Technical ",
-                                    React.createElement('span', { key: 'accent', className: "text-indigo-400" }, "Skills")
+                                    React.createElement('span', { key: 'accent', className: "text-gray-400" }, "Skills")
                                 ]),
                                 React.createElement('div', {
                                     key: 'grid',
@@ -611,7 +633,7 @@
                                 }, skillCategories.map((category, index) =>
                                     React.createElement('div', {
                                         key: index,
-                                        className: "bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 hover:border-indigo-500/50 transition-all duration-300"
+                                        className: "minimal-card rounded-xl p-6 transition-all duration-300"
                                     }, [
                                         React.createElement('div', {
                                             key: 'header',
@@ -619,7 +641,7 @@
                                         }, [
                                             React.createElement('div', {
                                                 key: 'icon',
-                                                className: "text-indigo-400 mr-3"
+                                                className: "text-gray-400 mr-3"
                                             }, category.icon),
                                             React.createElement('h3', {
                                                 key: 'title',
@@ -632,7 +654,7 @@
                                         }, category.skills.map((skill) =>
                                             React.createElement('span', {
                                                 key: skill,
-                                                className: "px-3 py-2 bg-indigo-600/20 text-indigo-300 rounded-lg text-sm font-medium border border-indigo-500/30 hover:bg-indigo-600/30 hover:scale-105 transition-all duration-200 cursor-default"
+                                                className: "px-3 py-2 bg-white/5 text-gray-300 rounded-lg text-sm font-medium border border-white/10 hover:bg-white/10 hover:scale-105 transition-all duration-200 cursor-default"
                                             }, skill)
                                         ))
                                     ])
@@ -656,7 +678,7 @@
                                     className: "text-4xl font-bold mb-8 text-white"
                                 }, [
                                     "Get In ",
-                                    React.createElement('span', { key: 'accent', className: "text-indigo-400" }, "Touch")
+                                    React.createElement('span', { key: 'accent', className: "text-gray-400" }, "Touch")
                                 ]),
                                 React.createElement('p', {
                                     key: 'subtitle',
@@ -669,7 +691,7 @@
                                     React.createElement('a', {
                                         key: 'email',
                                         href: `mailto:${personalInfo.email}`,
-                                        className: "group inline-flex items-center px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/25 bot-protection",
+                                        className: "group inline-flex items-center px-8 py-4 bg-white text-black hover:bg-gray-200 font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-white/10 bot-protection",
                                         onClick: (e) => {
                                             // Security: Additional protection for email
                                             if (!personalInfo.email) {
@@ -686,7 +708,7 @@
                                         href: atob('aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2luL2tyaXNobmEtc3Jpbml2YXMtbWFkaGlyYS0xNjgxOTIyMmEv'), // Base64 encoded
                                         target: "_blank",
                                         rel: "noopener noreferrer nofollow",
-                                        className: "group inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25 bot-protection"
+                                        className: "group inline-flex items-center px-8 py-4 bg-white/10 text-white hover:bg-white/20 font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-white/5 bot-protection border border-white/20"
                                     }, [
                                         React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-5 h-5 mr-3 group-hover:rotate-12 transition-transform duration-300" }),
                                         "LinkedIn"
@@ -696,7 +718,7 @@
                                         href: atob('aHR0cHM6Ly9naXRodWIuY29tL0tyaXNobmFTcmluaXZhcy0yNA=='), // Base64 encoded
                                         target: "_blank",
                                         rel: "noopener noreferrer nofollow",
-                                        className: "group inline-flex items-center px-8 py-4 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-gray-500/25 bot-protection"
+                                        className: "group inline-flex items-center px-8 py-4 bg-white/10 text-white hover:bg-white/20 font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-white/5 bot-protection border border-white/20"
                                     }, [
                                         React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-5 h-5 mr-3 group-hover:rotate-12 transition-transform duration-300" }),
                                         "GitHub"
@@ -710,10 +732,10 @@
                 // Footer
                 React.createElement('footer', {
                     key: 'footer',
-                    className: "bg-gray-900 border-t border-gray-800 py-8"
+                    className: "bg-black border-t border-white/10 py-8"
                 },
                     React.createElement('div', { className: "max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center" },
-                        React.createElement('p', { className: "text-gray-400" },
+                        React.createElement('p', { className: "text-gray-500" },
                             "© 2025 Portfolio Owner. Built with React & Tailwind CSS."
                         )
                     )
