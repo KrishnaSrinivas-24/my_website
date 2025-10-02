@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishna Srinivas Madhira - AI Engineer</title>
+    <meta name="description" content="AI Engineer passionate about leveraging machine learning and deep learning to solve complex problems and create impactful, data-driven applications.">
+    <meta name="keywords" content="AI Engineer, Machine Learning, Deep Learning, Computer Vision, NLP">
+    <meta name="author" content="Portfolio Owner">
+    <meta name="robots" content="index, follow, noarchive, nosnippet, max-snippet:0, max-image-preview:none">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https:; object-src 'none'; base-uri 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), screen-wake-lock=()">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="AI Engineer Portfolio">
+    <meta property="og:description" content="AI Engineer passionate about leveraging machine learning and deep learning to solve complex problems and create impactful, data-driven applications.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🤖%3C/text%3E%3C/svg%3E">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                    }
+                }
+            }
+        }
+        
+        // Security: Disable right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        // Security: Disable F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S
+        document.addEventListener('keydown', function(e) {
+            // Disable F12 (Developer Tools)
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+            // Disable Ctrl+Shift+I (Developer Tools)
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+            }
+            // Disable Ctrl+U (View Source)
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+            }
+            // Disable Ctrl+S (Save Page)
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+            }
+            // Disable Ctrl+A (Select All)
+            if (e.ctrlKey && e.key === 'a') {
+                e.preventDefault();
+            }
+            // Disable Ctrl+C (Copy)
+            if (e.ctrlKey && e.key === 'c') {
+                e.preventDefault();
+            }
+        });
+        
+        // Security: Disable text selection
+        document.onselectstart = function() {
+            return false;
+        };
+        
+        // Security: Disable drag
+        document.ondragstart = function() {
+            return false;
+        };
+        
+        // Security: Clear console periodically
+        setInterval(function() {
+            console.clear();
+        }, 1000);
+        
+        // Security: Basic bot detection
+        const isBot = /bot|crawler|spider|crawling/i.test(navigator.userAgent);
+        if (isBot) {
+            document.body.style.display = 'none';
+        }
+    </script>
+    
+    <!-- React and Babel -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Heroicons -->
+    <script src="https://unpkg.com/@heroicons/react@v1/outline/index.js" type="module"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #4f46e5;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6366f1;
+        }
+        
+        /* Smooth transitions */
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Security: Disable text selection */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Security: Disable image dragging */
+        img {
+            -webkit-user-drag: none;
+            -moz-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+        
+        /* Security: Hide email from basic scrapers */
+        .email-protection::before {
+            content: attr(data-user) "@" attr(data-domain) "." attr(data-tld);
+        }
+        
+        /* Security: Obfuscate content for bots */
+        .bot-protection {
+            position: relative;
+        }
+        
+        .bot-protection::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-inter">
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        // Heroicons components
+        const { 
+            ChevronDownIcon, 
+            ExternalLinkIcon, 
+            MailIcon, 
+            CodeIcon, 
+            AcademicCapIcon, 
+            BriefcaseIcon, 
+            UserIcon, 
+            HomeIcon 
+        } = window.HeroiconsOutline || {
+            ChevronDownIcon: () => React.createElement('svg', { className: 'w-5 h-5', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, React.createElement('path', { strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: 2, d: 'M19 9l-7 7-7-7' })),
+            ExternalLinkIcon: () => React.createElement('svg', { className: 'w-5 h-5', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, React.createElement('path', { strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: 2, d: 'M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14' })),
+            MailIcon: () => React.createElement('svg', { className: 'w-5 h-5', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, React.createElement('path', { strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: 2, d: 'M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' })),
+            CodeIcon: () => React.createElement('svg', { className: 'w-6 h-6', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, React.createElement('path', { strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: 2, d: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4' })),
+            AcademicCapIcon: () => React.createElement('svg', { className: 'w-6 h-6', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, React.createElement('path', { strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: 2, d: 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z' })),
+            BriefcaseIcon: () => React.createElement('svg', { className: 'w-6 h-6', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, React.createElement('path', { strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: 2, d: 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v2a2 2 0 01-2 2H10a2 2 0 01-2-2V6m8 0V9a2 2 0 01-2 2H10a2 2 0 01-2-2V6' })),
+            UserIcon: () => React.createElement('svg', { className: 'w-4 h-4', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, React.createElement('path', { strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: 2, d: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' })),
+            HomeIcon: () => React.createElement('svg', { className: 'w-4 h-4', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, React.createElement('path', { strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: 2, d: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' }))
+        };
+
+        const Portfolio = () => {
+            const [isScrolled, setIsScrolled] = React.useState(false);
+            const [activeSection, setActiveSection] = React.useState('home');
+            const [personalInfo, setPersonalInfo] = React.useState({
+                name: '',
+                email: '',
+                title: 'AI Engineer'
+            });
+
+            React.useEffect(() => {
+                // Security: Decode personal information on client side
+                const decodedName = atob('S3Jpc2huYSBTcmluaXZhcyBNYWRoaXJh'); // Base64 encoded name
+                const decodedEmail = 'krishnasrinivas2409' + String.fromCharCode(64) + 'gmail' + String.fromCharCode(46) + 'com';
+                
+                setPersonalInfo({
+                    name: decodedName,
+                    email: decodedEmail,
+                    title: 'AI Engineer'
+                });
+            }, []);
+
+            React.useEffect(() => {
+                const handleScroll = () => {
+                    setIsScrolled(window.scrollY > 50);
+                    
+                    // Update active section based on scroll position
+                    const sections = ['home', 'about', 'projects', 'skills', 'contact'];
+                    const currentSection = sections.find(section => {
+                        const element = document.getElementById(section);
+                        if (element) {
+                            const rect = element.getBoundingClientRect();
+                            return rect.top <= 100 && rect.bottom >= 100;
+                        }
+                        return false;
+                    });
+                    
+                    if (currentSection) {
+                        setActiveSection(currentSection);
+                    }
+                };
+
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const scrollToSection = (sectionId) => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+
+            const AnimatedSection = ({ children, className = "" }) => {
+                const [isVisible, setIsVisible] = React.useState(false);
+                const sectionRef = React.useRef();
+
+                React.useEffect(() => {
+                    const observer = new IntersectionObserver(
+                        ([entry]) => {
+                            if (entry.isIntersecting) {
+                                setIsVisible(true);
+                            }
+                        },
+                        { threshold: 0.1 }
+                    );
+
+                    if (sectionRef.current) {
+                        observer.observe(sectionRef.current);
+                    }
+
+                    return () => observer.disconnect();
+                }, []);
+
+                return React.createElement('div', {
+                    ref: sectionRef,
+                    className: `transition-all duration-1000 ${
+                        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                    } ${className}`
+                }, children);
+            };
+
+            const projects = [
+                {
+                    title: "FloatChat (Smart India Hackathon 2025)",
+                    description: "A real-time, feature-rich chat application designed to provide a seamless communication experience. Built for the Smart India Hackathon 2025 (PS ID: 25040), it features a robust architecture with live messaging powered by Socket.io.",
+                    technologies: ["React", "Node.js", "Express.js", "MongoDB", "Socket.io"],
+                    link: atob('aHR0cHM6Ly9naXRodWIuY29tL0tyaXNobmFTcmluaXZhcy0yNC9GTE9BVENIQVQ='), // Base64 encoded
+                    liveLink: null
+                },
+                {
+                    title: "Satellite Image Classification",
+                    description: "A deep learning model designed to classify satellite imagery. This application, showcased with a user-friendly Streamlit interface, can accurately categorize different terrestrial features from satellite photos, demonstrating strong skills in computer vision and model deployment.",
+                    technologies: ["Python", "TensorFlow", "Keras", "Streamlit"],
+                    link: atob('aHR0cHM6Ly9naXRodWIuY29tL0tyaXNobmFTcmluaXZhcy0yNC9NTF9URVJNLVBST0pFQ1Q='), // Base64 encoded
+                    liveLink: atob('aHR0cHM6Ly9tbHRlcm0tcHJvamVjdC0yNGtyaXNobmFrZXNhdm5pa2lsLnN0cmVhbWxpdC5hcHAv') // Base64 encoded
+                },
+                {
+                    title: "JARVIS - AI Voice Assistant",
+                    description: "A Python-based voice assistant inspired by JARVIS. This application can understand voice commands to perform tasks like opening websites, telling time, and interacting with the user, showcasing skills in speech recognition and automation scripting.",
+                    technologies: ["Python", "SpeechRecognition", "pyttsx3", "pywhatkit"],
+                    link: atob('aHR0cHM6Ly9naXRodWIuY29tL0tyaXNobmFTcmluaXZhcy0yNC9KQVJWSVM='), // Base64 encoded
+                    liveLink: null
+                }
+            ];
+
+            const skillCategories = [
+                {
+                    title: "Languages",
+                    skills: ["Python", "Java", "C++", "SQL"],
+                    icon: React.createElement(CodeIcon, { className: "w-6 h-6" })
+                },
+                {
+                    title: "AI & Machine Learning",
+                    skills: ["TensorFlow", "PyTorch", "Keras", "Scikit-learn", "NLTK", "OpenCV"],
+                    icon: React.createElement(AcademicCapIcon, { className: "w-6 h-6" })
+                },
+                {
+                    title: "Web Technologies",
+                    skills: ["React", "Node.js", "Express.js", "Socket.io", "Streamlit"],
+                    icon: React.createElement(BriefcaseIcon, { className: "w-6 h-6" })
+                },
+                {
+                    title: "Databases",
+                    skills: ["PostgreSQL", "MongoDB"],
+                    icon: React.createElement(BriefcaseIcon, { className: "w-6 h-6" })
+                },
+                {
+                    title: "Tools",
+                    skills: ["Git", "GitHub", "Docker", "Google Cloud Platform (GCP)", "VS Code"],
+                    icon: React.createElement(BriefcaseIcon, { className: "w-6 h-6" })
+                }
+            ];
+
+            return React.createElement('div', { className: "min-h-screen bg-gray-900 text-white font-inter" }, [
+                // Navigation
+                React.createElement('nav', {
+                    key: 'nav',
+                    className: `fixed top-0 w-full z-50 transition-all duration-300 ${
+                        isScrolled ? 'bg-gray-900/80 backdrop-blur-md border-b border-gray-800' : 'bg-transparent'
+                    }`
+                }, 
+                    React.createElement('div', { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" },
+                        React.createElement('div', { className: "flex justify-between items-center h-16" }, [
+                            React.createElement('div', { 
+                                key: 'logo',
+                                className: "text-xl font-bold text-indigo-400 bot-protection" 
+                            }, personalInfo.name || "Loading..."),
+                            React.createElement('div', { 
+                                key: 'nav-links',
+                                className: "hidden md:flex space-x-8" 
+                            }, [
+                                { id: 'home', label: 'Home', icon: React.createElement(HomeIcon, { className: "w-4 h-4" }) },
+                                { id: 'about', label: 'About', icon: React.createElement(UserIcon, { className: "w-4 h-4" }) },
+                                { id: 'projects', label: 'Projects', icon: React.createElement(BriefcaseIcon, { className: "w-4 h-4" }) },
+                                { id: 'skills', label: 'Skills', icon: React.createElement(AcademicCapIcon, { className: "w-4 h-4" }) },
+                                { id: 'contact', label: 'Contact', icon: React.createElement(MailIcon, { className: "w-4 h-4" }) }
+                            ].map((item) => 
+                                React.createElement('button', {
+                                    key: item.id,
+                                    onClick: () => scrollToSection(item.id),
+                                    className: `flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                                        activeSection === item.id
+                                            ? 'text-indigo-400 bg-indigo-400/10'
+                                            : 'text-gray-300 hover:text-indigo-400 hover:bg-gray-800/50'
+                                    }`
+                                }, [item.icon, React.createElement('span', { key: 'label' }, item.label)])
+                            ))
+                        ])
+                    )
+                ),
+
+                // Hero Section
+                React.createElement('section', {
+                    key: 'hero',
+                    id: 'home',
+                    className: "min-h-screen flex items-center justify-center relative overflow-hidden"
+                }, [
+                    // Animated Background
+                    React.createElement('div', {
+                        key: 'bg',
+                        className: "absolute inset-0 opacity-30"
+                    }, [
+                        React.createElement('div', {
+                            key: 'gradient',
+                            className: "absolute inset-0 bg-gradient-to-br from-indigo-900/50 via-purple-900/30 to-gray-900"
+                        }),
+                        React.createElement('div', {
+                            key: 'pattern',
+                            className: "absolute inset-0",
+                            style: {
+                                backgroundImage: `radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.3) 0%, transparent 50%),
+                                                 linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent),
+                                                 linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent)`,
+                                backgroundSize: '50px 50px'
+                            }
+                        })
+                    ]),
+
+                    React.createElement('div', {
+                        key: 'content',
+                        className: "relative z-10 text-center max-w-4xl mx-auto px-4"
+                    },
+                        React.createElement(AnimatedSection, {},
+                            React.createElement('div', {}, [
+                                React.createElement('h1', {
+                                    key: 'title',
+                                    className: "text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent bot-protection"
+                                }, `Hi, I'm ${personalInfo.name || 'Loading...'}`),
+                                React.createElement('p', {
+                                    key: 'subtitle',
+                                    className: "text-xl md:text-2xl text-gray-300 mb-4"
+                                }, "I build intelligent solutions with AI."),
+                                React.createElement('p', {
+                                    key: 'description',
+                                    className: "text-lg text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed"
+                                }, "An AI Engineer passionate about leveraging machine learning and deep learning to solve complex problems and create impactful, data-driven applications."),
+                                React.createElement('button', {
+                                    key: 'cta',
+                                    onClick: () => scrollToSection('projects'),
+                                    className: "group inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/25"
+                                }, [
+                                    "View My Work",
+                                    React.createElement(ChevronDownIcon, {
+                                        key: 'icon',
+                                        className: "w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform duration-300"
+                                    })
+                                ])
+                            ])
+                        )
+                    ),
+
+                    // Scroll Indicator
+                    React.createElement('div', {
+                        key: 'scroll-indicator',
+                        className: "absolute bottom-8 left-1/2 transform -translate-x-1/2"
+                    },
+                        React.createElement('div', { className: "animate-bounce" },
+                            React.createElement(ChevronDownIcon, { className: "w-6 h-6 text-gray-400" })
+                        )
+                    )
+                ]),
+
+                // About Section
+                React.createElement('section', {
+                    key: 'about',
+                    id: 'about',
+                    className: "py-20 bg-gray-800/50"
+                },
+                    React.createElement('div', { className: "max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" },
+                        React.createElement(AnimatedSection, {},
+                            React.createElement('div', {}, [
+                                React.createElement('h2', {
+                                    key: 'title',
+                                    className: "text-4xl font-bold text-center mb-16 text-white"
+                                }, [
+                                    "About ",
+                                    React.createElement('span', { key: 'accent', className: "text-indigo-400" }, "Me")
+                                ]),
+                                React.createElement('div', {
+                                    key: 'content',
+                                    className: "grid md:grid-cols-2 gap-12 items-center"
+                                }, [
+                                    React.createElement('div', {
+                                        key: 'text',
+                                        className: "space-y-6"
+                                    }, [
+                                        React.createElement('p', {
+                                            key: 'p1',
+                                            className: "text-lg text-gray-300 leading-relaxed"
+                                        }, "I am an AI Engineer with a strong foundation in developing and deploying machine learning models. My journey in technology has been driven by a passion for artificial intelligence and its potential to innovate."),
+                                        React.createElement('p', {
+                                            key: 'p2',
+                                            className: "text-lg text-gray-300 leading-relaxed"
+                                        }, "I specialize in areas like Natural Language Processing and Computer Vision and thrive on turning complex datasets into actionable insights. Outside of coding, I enjoy exploring new technologies and contributing to open-source projects."),
+                                        React.createElement('div', {
+                                            key: 'tags',
+                                            className: "flex flex-wrap gap-3"
+                                        }, ["AI Engineer", "Machine Learning", "Deep Learning", "Computer Vision", "NLP"].map((tag) =>
+                                            React.createElement('span', {
+                                                key: tag,
+                                                className: "px-4 py-2 bg-indigo-600/20 text-indigo-300 rounded-full text-sm font-medium border border-indigo-500/30"
+                                            }, tag)
+                                        ))
+                                    ]),
+                                    React.createElement('div', {
+                                        key: 'avatar',
+                                        className: "relative"
+                                    }, [
+                                        React.createElement('div', {
+                                            key: 'main-circle',
+                                            className: "w-80 h-80 mx-auto bg-gradient-to-br from-indigo-600/20 to-purple-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-indigo-500/30"
+                                        },
+                                            React.createElement('div', {
+                                                className: "w-64 h-64 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-6xl font-bold"
+                                            }, "KM")
+                                        ),
+                                        React.createElement('div', {
+                                            key: 'accent1',
+                                            className: "absolute -top-4 -right-4 w-24 h-24 bg-indigo-600/30 rounded-full animate-pulse"
+                                        }),
+                                        React.createElement('div', {
+                                            key: 'accent2',
+                                            className: "absolute -bottom-4 -left-4 w-16 h-16 bg-purple-600/30 rounded-full animate-pulse delay-1000"
+                                        })
+                                    ])
+                                ])
+                            ])
+                        )
+                    )
+                ),
+
+                // Projects Section
+                React.createElement('section', {
+                    key: 'projects',
+                    id: 'projects',
+                    className: "py-20"
+                },
+                    React.createElement('div', { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" },
+                        React.createElement(AnimatedSection, {},
+                            React.createElement('div', {}, [
+                                React.createElement('h2', {
+                                    key: 'title',
+                                    className: "text-4xl font-bold text-center mb-16 text-white"
+                                }, [
+                                    "Featured ",
+                                    React.createElement('span', { key: 'accent', className: "text-indigo-400" }, "Projects")
+                                ]),
+                                React.createElement('div', {
+                                    key: 'grid',
+                                    className: "grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+                                }, projects.map((project, index) =>
+                                    React.createElement('div', {
+                                        key: index,
+                                        className: "group bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 hover:border-indigo-500/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10"
+                                    }, [
+                                        React.createElement('h3', {
+                                            key: 'title',
+                                            className: "text-xl font-bold mb-4 text-white group-hover:text-indigo-400 transition-colors duration-300"
+                                        }, project.title),
+                                        React.createElement('p', {
+                                            key: 'desc',
+                                            className: "text-gray-300 mb-6 leading-relaxed"
+                                        }, project.description),
+                                        React.createElement('div', {
+                                            key: 'tech',
+                                            className: "flex flex-wrap gap-2 mb-6"
+                                        }, project.technologies.map((tech) =>
+                                            React.createElement('span', {
+                                                key: tech,
+                                                className: "px-3 py-1 bg-gray-700/50 text-gray-300 rounded-full text-xs"
+                                            }, tech)
+                                        )),
+                                        React.createElement('div', {
+                                            key: 'links',
+                                            className: "flex space-x-4"
+                                        }, [
+                                            React.createElement('a', {
+                                                key: 'github',
+                                                href: project.link,
+                                                target: "_blank",
+                                                rel: "noopener noreferrer nofollow",
+                                                className: "inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors duration-300 text-sm bot-protection"
+                                            }, [
+                                                React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-4 h-4 mr-2" }),
+                                                "GitHub"
+                                            ]),
+                                            project.liveLink && React.createElement('a', {
+                                                key: 'live',
+                                                href: project.liveLink,
+                                                target: "_blank",
+                                                rel: "noopener noreferrer nofollow",
+                                                className: "inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg transition-colors duration-300 text-sm bot-protection"
+                                            }, [
+                                                React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-4 h-4 mr-2" }),
+                                                "Live Demo"
+                                            ])
+                                        ])
+                                    ])
+                                ))
+                            ])
+                        )
+                    )
+                ),
+
+                // Skills Section
+                React.createElement('section', {
+                    key: 'skills',
+                    id: 'skills',
+                    className: "py-20 bg-gray-800/50"
+                },
+                    React.createElement('div', { className: "max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" },
+                        React.createElement(AnimatedSection, {},
+                            React.createElement('div', {}, [
+                                React.createElement('h2', {
+                                    key: 'title',
+                                    className: "text-4xl font-bold text-center mb-16 text-white"
+                                }, [
+                                    "Technical ",
+                                    React.createElement('span', { key: 'accent', className: "text-indigo-400" }, "Skills")
+                                ]),
+                                React.createElement('div', {
+                                    key: 'grid',
+                                    className: "grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+                                }, skillCategories.map((category, index) =>
+                                    React.createElement('div', {
+                                        key: index,
+                                        className: "bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 hover:border-indigo-500/50 transition-all duration-300"
+                                    }, [
+                                        React.createElement('div', {
+                                            key: 'header',
+                                            className: "flex items-center mb-4"
+                                        }, [
+                                            React.createElement('div', {
+                                                key: 'icon',
+                                                className: "text-indigo-400 mr-3"
+                                            }, category.icon),
+                                            React.createElement('h3', {
+                                                key: 'title',
+                                                className: "text-xl font-bold text-white"
+                                            }, category.title)
+                                        ]),
+                                        React.createElement('div', {
+                                            key: 'skills',
+                                            className: "flex flex-wrap gap-2"
+                                        }, category.skills.map((skill) =>
+                                            React.createElement('span', {
+                                                key: skill,
+                                                className: "px-3 py-2 bg-indigo-600/20 text-indigo-300 rounded-lg text-sm font-medium border border-indigo-500/30 hover:bg-indigo-600/30 hover:scale-105 transition-all duration-200 cursor-default"
+                                            }, skill)
+                                        ))
+                                    ])
+                                ))
+                            ])
+                        )
+                    )
+                ),
+
+                // Contact Section
+                React.createElement('section', {
+                    key: 'contact',
+                    id: 'contact',
+                    className: "py-20"
+                },
+                    React.createElement('div', { className: "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" },
+                        React.createElement(AnimatedSection, {},
+                            React.createElement('div', {}, [
+                                React.createElement('h2', {
+                                    key: 'title',
+                                    className: "text-4xl font-bold mb-8 text-white"
+                                }, [
+                                    "Get In ",
+                                    React.createElement('span', { key: 'accent', className: "text-indigo-400" }, "Touch")
+                                ]),
+                                React.createElement('p', {
+                                    key: 'subtitle',
+                                    className: "text-xl text-gray-300 mb-12"
+                                }, "Let's connect and discuss opportunities to collaborate on exciting AI projects."),
+                                React.createElement('div', {
+                                    key: 'buttons',
+                                    className: "flex flex-col sm:flex-row gap-6 justify-center"
+                                }, [
+                                    React.createElement('a', {
+                                        key: 'email',
+                                        href: `mailto:${personalInfo.email}`,
+                                        className: "group inline-flex items-center px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/25 bot-protection",
+                                        onClick: (e) => {
+                                            // Security: Additional protection for email
+                                            if (!personalInfo.email) {
+                                                e.preventDefault();
+                                                return false;
+                                            }
+                                        }
+                                    }, [
+                                        React.createElement(MailIcon, { key: 'icon', className: "w-5 h-5 mr-3 group-hover:animate-bounce" }),
+                                        "Email Me"
+                                    ]),
+                                    React.createElement('a', {
+                                        key: 'linkedin',
+                                        href: atob('aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2luL2tyaXNobmEtc3Jpbml2YXMtbWFkaGlyYS0xNjgxOTIyMmEv'), // Base64 encoded
+                                        target: "_blank",
+                                        rel: "noopener noreferrer nofollow",
+                                        className: "group inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25 bot-protection"
+                                    }, [
+                                        React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-5 h-5 mr-3 group-hover:rotate-12 transition-transform duration-300" }),
+                                        "LinkedIn"
+                                    ]),
+                                    React.createElement('a', {
+                                        key: 'github',
+                                        href: atob('aHR0cHM6Ly9naXRodWIuY29tL0tyaXNobmFTcmluaXZhcy0yNA=='), // Base64 encoded
+                                        target: "_blank",
+                                        rel: "noopener noreferrer nofollow",
+                                        className: "group inline-flex items-center px-8 py-4 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-gray-500/25 bot-protection"
+                                    }, [
+                                        React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-5 h-5 mr-3 group-hover:rotate-12 transition-transform duration-300" }),
+                                        "GitHub"
+                                    ])
+                                ])
+                            ])
+                        )
+                    )
+                ),
+
+                // Footer
+                React.createElement('footer', {
+                    key: 'footer',
+                    className: "bg-gray-900 border-t border-gray-800 py-8"
+                },
+                    React.createElement('div', { className: "max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center" },
+                        React.createElement('p', { className: "text-gray-400" },
+                            "© 2025 Portfolio Owner. Built with React & Tailwind CSS."
+                        )
+                    )
+                )
+            ]);
+        };
+
+        ReactDOM.render(React.createElement(Portfolio), document.getElementById('root'));
+    </script>
+</body>
+</html>
