@@ -137,11 +137,22 @@
             background: #555555;
         }
         
-        /* Smooth transitions */
+        /* Smooth transitions - Fixed for performance */
         * {
-            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+            transition-property: color, background-color, border-color, opacity, transform;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-duration: 0.2s;
+        }
+        
+        /* Performance optimization - Reduce repaints */
+        .smooth-scroll {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        
+        /* Reduce animation complexity for better performance */
+        .minimal-animation {
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
         
         /* Security: Disable text selection */
@@ -199,6 +210,37 @@
         
         .subtle-glow:hover {
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Profile image styles */
+        .profile-image {
+            width: 320px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+        }
+        
+        .profile-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .profile-glow {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
         }
     </style>
 </head>
@@ -290,7 +332,7 @@
                                 setIsVisible(true);
                             }
                         },
-                        { threshold: 0.1 }
+                        { threshold: 0.1, rootMargin: '50px' }
                     );
 
                     if (sectionRef.current) {
@@ -302,7 +344,7 @@
 
                 return React.createElement('div', {
                     ref: sectionRef,
-                    className: `transition-all duration-1000 ${
+                    className: `minimal-animation ${
                         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                     } ${className}`
                 }, children);
@@ -513,25 +555,33 @@
                                     ]),
                                     React.createElement('div', {
                                         key: 'avatar',
-                                        className: "relative"
-                                    }, [
+                                        className: "relative flex justify-center"
+                                    }, 
                                         React.createElement('div', {
-                                            key: 'main-circle',
-                                            className: "w-80 h-80 mx-auto bg-white/5 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/10"
-                                        },
+                                            className: "profile-container"
+                                        }, [
                                             React.createElement('div', {
-                                                className: "w-64 h-64 bg-gradient-to-br from-white/20 to-white/10 rounded-full flex items-center justify-center text-6xl font-bold text-white"
+                                                key: 'glow',
+                                                className: "profile-glow"
+                                            }),
+                                            React.createElement('img', {
+                                                key: 'profile',
+                                                src: './profile-image.png',
+                                                alt: 'Krishna Srinivas Madhira - AI Engineer',
+                                                className: "profile-image relative z-10",
+                                                onError: (e) => {
+                                                    // Fallback to initials if image fails to load
+                                                    e.target.style.display = 'none';
+                                                    e.target.nextSibling.style.display = 'flex';
+                                                }
+                                            }),
+                                            React.createElement('div', {
+                                                key: 'fallback',
+                                                className: "w-80 h-80 bg-gradient-to-br from-white/20 to-white/10 rounded-full flex items-center justify-center text-6xl font-bold text-white border border-white/10",
+                                                style: { display: 'none' }
                                             }, "KM")
-                                        ),
-                                        React.createElement('div', {
-                                            key: 'accent1',
-                                            className: "absolute -top-4 -right-4 w-24 h-24 bg-white/5 rounded-full animate-pulse"
-                                        }),
-                                        React.createElement('div', {
-                                            key: 'accent2',
-                                            className: "absolute -bottom-4 -left-4 w-16 h-16 bg-white/10 rounded-full animate-pulse delay-1000"
-                                        })
-                                    ])
+                                        ])
+                                    )
                                 ])
                             ])
                         )
@@ -560,11 +610,11 @@
                                 }, projects.map((project, index) =>
                                     React.createElement('div', {
                                         key: index,
-                                        className: "group minimal-card subtle-glow rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-2"
+                                        className: "group minimal-card subtle-glow rounded-xl p-6 minimal-animation transform hover:-translate-y-1"
                                     }, [
                                         React.createElement('h3', {
                                             key: 'title',
-                                            className: "text-xl font-bold mb-4 text-white group-hover:text-gray-200 transition-colors duration-300"
+                                            className: "text-xl font-bold mb-4 text-white group-hover:text-gray-200 minimal-animation"
                                         }, project.title),
                                         React.createElement('p', {
                                             key: 'desc',
@@ -633,7 +683,7 @@
                                 }, skillCategories.map((category, index) =>
                                     React.createElement('div', {
                                         key: index,
-                                        className: "minimal-card rounded-xl p-6 transition-all duration-300"
+                                        className: "minimal-card rounded-xl p-6 minimal-animation"
                                     }, [
                                         React.createElement('div', {
                                             key: 'header',
