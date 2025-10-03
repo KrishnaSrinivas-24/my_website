@@ -117,6 +117,13 @@
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
             background: #000000;
+            overflow-x: hidden;
+        }
+        
+        /* Disable all animations on scroll for performance */
+        .reduce-motion {
+            animation: none !important;
+            transition: none !important;
         }
         
         /* Custom scrollbar */
@@ -137,22 +144,21 @@
             background: #555555;
         }
         
-        /* Smooth transitions - Fixed for performance */
+        /* Minimal smooth transitions only */
         * {
-            transition-property: color, background-color, border-color, opacity, transform;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 0.2s;
+            transition: opacity 0.15s ease;
         }
         
-        /* Performance optimization - Reduce repaints */
-        .smooth-scroll {
+        /* Only animate essential hover states */
+        .hover-transition {
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        
+        /* Performance optimization */
+        .gpu-accelerated {
             will-change: transform;
             transform: translateZ(0);
-        }
-        
-        /* Reduce animation complexity for better performance */
-        .minimal-animation {
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            backface-visibility: hidden;
         }
         
         /* Security: Disable text selection */
@@ -192,11 +198,10 @@
             z-index: 1;
         }
         
-        /* Professional minimal styles */
+        /* Professional minimal styles - No animations */
         .minimal-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
         }
         
         .minimal-card:hover {
@@ -204,6 +209,7 @@
             border-color: rgba(255, 255, 255, 0.12);
         }
         
+        /* Remove problematic animations */
         .subtle-glow {
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.02);
         }
@@ -212,7 +218,7 @@
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
         }
         
-        /* Profile image styles */
+        /* Profile image styles - Simplified */
         .profile-image {
             width: 320px;
             height: 320px;
@@ -225,22 +231,6 @@
         .profile-container {
             position: relative;
             display: inline-block;
-        }
-        
-        .profile-glow {
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            animation: pulse-glow 3s ease-in-out infinite;
-        }
-        
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.05); }
         }
     </style>
 </head>
@@ -328,11 +318,13 @@
                 React.useEffect(() => {
                     const observer = new IntersectionObserver(
                         ([entry]) => {
-                            if (entry.isIntersecting) {
-                                setIsVisible(true);
-                            }
+                            setIsVisible(entry.isIntersecting);
                         },
-                        { threshold: 0.1, rootMargin: '50px' }
+                        { 
+                            threshold: 0.1, 
+                            rootMargin: '100px',
+                            // Reduce frequency of updates
+                        }
                     );
 
                     if (sectionRef.current) {
@@ -344,9 +336,11 @@
 
                 return React.createElement('div', {
                     ref: sectionRef,
-                    className: `minimal-animation ${
-                        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                    } ${className}`
+                    className: `${isVisible ? 'opacity-100' : 'opacity-0'} ${className}`,
+                    style: {
+                        transition: 'opacity 0.6s ease-out',
+                        willChange: isVisible ? 'auto' : 'opacity'
+                    }
                 }, children);
             };
 
@@ -406,8 +400,8 @@
                 // Navigation
                 React.createElement('nav', {
                     key: 'nav',
-                    className: `fixed top-0 w-full z-50 transition-all duration-300 ${
-                        isScrolled ? 'bg-black/80 backdrop-blur-xl border-b border-white/10' : 'bg-transparent'
+                    className: `fixed top-0 w-full z-50 hover-transition ${
+                        isScrolled ? 'bg-black/80 border-b border-white/10' : 'bg-transparent'
                     }`
                 }, 
                     React.createElement('div', { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" },
@@ -429,7 +423,7 @@
                                 React.createElement('button', {
                                     key: item.id,
                                     onClick: () => scrollToSection(item.id),
-                                    className: `flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                                    className: `flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium hover-transition ${
                                         activeSection === item.id
                                             ? 'text-white bg-white/10'
                                             : 'text-gray-300 hover:text-white hover:bg-white/5'
@@ -488,12 +482,12 @@
                                 React.createElement('button', {
                                     key: 'cta',
                                     onClick: () => scrollToSection('projects'),
-                                    className: "group inline-flex items-center px-8 py-4 bg-white text-black font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-white/10"
+                                    className: "group inline-flex items-center px-8 py-4 bg-white text-black font-semibold rounded-lg hover-transition hover:bg-gray-200"
                                 }, [
                                     "View My Work",
                                     React.createElement(ChevronDownIcon, {
                                         key: 'icon',
-                                        className: "w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform duration-300"
+                                        className: "w-5 h-5 ml-2"
                                     })
                                 ])
                             ])
@@ -560,15 +554,11 @@
                                         React.createElement('div', {
                                             className: "profile-container"
                                         }, [
-                                            React.createElement('div', {
-                                                key: 'glow',
-                                                className: "profile-glow"
-                                            }),
                                             React.createElement('img', {
                                                 key: 'profile',
                                                 src: './profile-image.png',
                                                 alt: 'Krishna Srinivas Madhira - AI Engineer',
-                                                className: "profile-image relative z-10",
+                                                className: "profile-image gpu-accelerated",
                                                 onError: (e) => {
                                                     // Fallback to initials if image fails to load
                                                     e.target.style.display = 'none';
@@ -610,11 +600,11 @@
                                 }, projects.map((project, index) =>
                                     React.createElement('div', {
                                         key: index,
-                                        className: "group minimal-card subtle-glow rounded-xl p-6 minimal-animation transform hover:-translate-y-1"
+                                        className: "group minimal-card subtle-glow rounded-xl p-6 hover-transition"
                                     }, [
                                         React.createElement('h3', {
                                             key: 'title',
-                                            className: "text-xl font-bold mb-4 text-white group-hover:text-gray-200 minimal-animation"
+                                            className: "text-xl font-bold mb-4 text-white group-hover:text-gray-200 hover-transition"
                                         }, project.title),
                                         React.createElement('p', {
                                             key: 'desc',
@@ -638,7 +628,7 @@
                                                 href: project.link,
                                                 target: "_blank",
                                                 rel: "noopener noreferrer nofollow",
-                                                className: "inline-flex items-center px-4 py-2 bg-white text-black hover:bg-gray-200 rounded-lg transition-colors duration-300 text-sm bot-protection"
+                                                className: "inline-flex items-center px-4 py-2 bg-white text-black hover:bg-gray-200 rounded-lg hover-transition text-sm bot-protection"
                                             }, [
                                                 React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-4 h-4 mr-2" }),
                                                 "GitHub"
@@ -648,7 +638,7 @@
                                                 href: project.liveLink,
                                                 target: "_blank",
                                                 rel: "noopener noreferrer nofollow",
-                                                className: "inline-flex items-center px-4 py-2 bg-white/10 text-white hover:bg-white/20 rounded-lg transition-colors duration-300 text-sm bot-protection border border-white/20"
+                                                className: "inline-flex items-center px-4 py-2 bg-white/10 text-white hover:bg-white/20 rounded-lg hover-transition text-sm bot-protection border border-white/20"
                                             }, [
                                                 React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-4 h-4 mr-2" }),
                                                 "Live Demo"
@@ -683,7 +673,7 @@
                                 }, skillCategories.map((category, index) =>
                                     React.createElement('div', {
                                         key: index,
-                                        className: "minimal-card rounded-xl p-6 minimal-animation"
+                                        className: "minimal-card rounded-xl p-6 hover-transition"
                                     }, [
                                         React.createElement('div', {
                                             key: 'header',
@@ -741,7 +731,7 @@
                                     React.createElement('a', {
                                         key: 'email',
                                         href: `mailto:${personalInfo.email}`,
-                                        className: "group inline-flex items-center px-8 py-4 bg-white text-black hover:bg-gray-200 font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-white/10 bot-protection",
+                                        className: "group inline-flex items-center px-8 py-4 bg-white text-black hover:bg-gray-200 font-semibold rounded-lg transition-colors duration-200 bot-protection",
                                         onClick: (e) => {
                                             // Security: Additional protection for email
                                             if (!personalInfo.email) {
@@ -758,9 +748,9 @@
                                         href: atob('aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2luL2tyaXNobmEtc3Jpbml2YXMtbWFkaGlyYS0xNjgxOTIyMmEv'), // Base64 encoded
                                         target: "_blank",
                                         rel: "noopener noreferrer nofollow",
-                                        className: "group inline-flex items-center px-8 py-4 bg-white/10 text-white hover:bg-white/20 font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-white/5 bot-protection border border-white/20"
+                                        className: "group inline-flex items-center px-8 py-4 bg-white/10 text-white hover:bg-white/20 font-semibold rounded-lg transition-colors duration-200 bot-protection border border-white/20"
                                     }, [
-                                        React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-5 h-5 mr-3 group-hover:rotate-12 transition-transform duration-300" }),
+                                        React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-5 h-5 mr-3" }),
                                         "LinkedIn"
                                     ]),
                                     React.createElement('a', {
@@ -768,9 +758,9 @@
                                         href: atob('aHR0cHM6Ly9naXRodWIuY29tL0tyaXNobmFTcmluaXZhcy0yNA=='), // Base64 encoded
                                         target: "_blank",
                                         rel: "noopener noreferrer nofollow",
-                                        className: "group inline-flex items-center px-8 py-4 bg-white/10 text-white hover:bg-white/20 font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-white/5 bot-protection border border-white/20"
+                                        className: "group inline-flex items-center px-8 py-4 bg-white/10 text-white hover:bg-white/20 font-semibold rounded-lg transition-colors duration-200 bot-protection border border-white/20"
                                     }, [
-                                        React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-5 h-5 mr-3 group-hover:rotate-12 transition-transform duration-300" }),
+                                        React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-5 h-5 mr-3" }),
                                         "GitHub"
                                     ])
                                 ])
