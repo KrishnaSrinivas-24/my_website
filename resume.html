@@ -3,25 +3,362 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krishna Srinivas - Resume</title>
+    <title>Krishna Srinivas Madhira - Resume</title>
     
-    <!-- Enhanced Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self';">
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data:; object-src 'none';">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), screen-wake-lock=(), accelerometer=(), gyroscope=(), magnetometer=(), clipboard-read=(), clipboard-write=()">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <style>
+        /* ATS-Friendly Resume Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #000000;
+            background: #ffffff;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        /* A4 Page Settings */
+        @page {
+            size: A4;
+            margin: 0.5in;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 0.3in;
+                font-size: 10px;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+        }
+        
+        /* Download Button Styles */
+        .download-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+        
+        .btn {
+            background: #000000;
+            color: #ffffff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: inherit;
+        }
+        
+        .btn:hover {
+            background: #333333;
+        }
+        
+        /* Typography */
+        h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 2px;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #000000;
+            margin: 12px 0 6px 0;
+            padding-bottom: 2px;
+            border-bottom: 1px solid #cccccc;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #000000;
+            margin: 6px 0 2px 0;
+        }
+        
+        h4 {
+            font-size: 11px;
+            font-weight: 500;
+            color: #333333;
+            margin: 2px 0;
+        }
+        
+        p, li {
+            font-size: 11px;
+            line-height: 1.3;
+            margin-bottom: 2px;
+        }
+        
+        /* Contact Information */
+        .contact-info {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #cccccc;
+        }
+        
+        .contact-details {
+            font-size: 10px;
+            color: #333333;
+            margin-top: 3px;
+        }
+        
+        /* Sections */
+        .section {
+            margin-bottom: 12px;
+        }
+        
+        .section:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Education & Experience */
+        .item {
+            margin-bottom: 8px;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+        
+        .item-title {
+            font-weight: 600;
+            font-size: 11px;
+        }
+        
+        .item-date {
+            font-size: 10px;
+            color: #666666;
+        }
+        
+        .item-subtitle {
+            font-size: 10px;
+            color: #333333;
+            margin-bottom: 2px;
+        }
+        
+        /* Skills */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .skill-category {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .skill-list {
+            font-size: 10px;
+            line-height: 1.3;
+        }
+        
+        /* Lists */
+        ul {
+            margin-left: 15px;
+            margin-bottom: 4px;
+        }
+        
+        li {
+            margin-bottom: 1px;
+        }
+        
+        /* Utilities */
+        .text-center { text-align: center; }
+        .font-bold { font-weight: 600; }
+        .text-sm { font-size: 10px; }
+        .text-xs { font-size: 9px; }
+        .mb-1 { margin-bottom: 2px; }
+        .mb-2 { margin-bottom: 4px; }
+        
+        /* Security */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .selectable {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+    </style>
+</head>
+<body>
+    <!-- Download Button -->
+    <div class="no-print download-btn">
+        <button onclick="window.print()" class="btn">
+            Download PDF
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="contact-info">
+        <h1 class="selectable">KRISHNA SRINIVAS MADHIRA</h1>
+        <div class="contact-details selectable">
+            AI Engineer | Machine Learning Specialist
+        </div>
+        <div class="contact-details selectable">
+            Email: krishnasrinivasmadhira@gmail.com | Phone: +91-XXXXXXXXXX
+        </div>
+        <div class="contact-details selectable">
+            LinkedIn: linkedin.com/in/krishnasrinivas- | GitHub: github.com/KrishnaSrinivas-24
+        </div>
+    </header>
+
+    <!-- Professional Summary -->
+    <section class="section">
+        <h2>PROFESSIONAL SUMMARY</h2>
+        <p class="selectable">
+            Recent Computer Science Engineering student specializing in Artificial Intelligence with practical experience in Machine Learning, Natural Language Processing, and Cloud Computing. Demonstrated expertise through internships at IBM SkillsBuild and CODTECH IT Solutions. Proficient in Python, TensorFlow, and cloud platforms with hands-on project experience in AI model development and deployment.
+        </p>
+    </section>
+
+    <!-- Education -->
+    <section class="section">
+        <h2>EDUCATION</h2>
+        <div class="item">
+            <div class="item-header">
+                <div class="item-title selectable">Bachelor of Technology - Computer Science Engineering (AI)</div>
+                <div class="item-date selectable">2023 - 2027</div>
+            </div>
+            <div class="item-subtitle selectable">GITAM (Deemed To Be University) | Visakhapatnam, India</div>
+            <p class="selectable">Expected Graduation: June 2027</p>
+        </div>
+        <div class="item">
+            <div class="item-header">
+                <div class="item-title selectable">Intermediate (MPC) - Mathematics, Physics, Chemistry</div>
+                <div class="item-date selectable">2021 - 2023</div>
+            </div>
+            <div class="item-subtitle selectable">Sri Chaitanya College of Education</div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="section">
+        <h2>EXPERIENCE</h2>
+        
+        <div class="item">
+            <div class="item-header">
+                <div class="item-title selectable">GitHub AIML Member</div>
+                <div class="item-date selectable">Aug 2025 - Present</div>
+            </div>
+            <div class="item-subtitle selectable">GitHub Community - GITAM University | Visakhapatnam, India</div>
+            <ul>
+                <li class="selectable">Actively contribute to open-source AI/ML projects and coding discussions</li>
+                <li class="selectable">Collaborate on innovative solutions to enhance team performance and project outcomes</li>
+            </ul>
+        </div>
+
+        <div class="item">
+            <div class="item-header">
+                <div class="item-title selectable">AI & Cloud Intern</div>
+                <div class="item-date selectable">Jun 2025 - Jul 2025</div>
+            </div>
+            <div class="item-subtitle selectable">Edunet Foundation (IBM SkillsBuild Program) | Remote</div>
+            <ul>
+                <li class="selectable">Completed 4-week virtual internship focusing on AI and cloud computing technologies</li>
+                <li class="selectable">Developed small-scale projects integrating AI models with cloud deployment pipelines</li>
+                <li class="selectable">Gained practical exposure to IBM Watson, Object Storage, and AI-based automation tools</li>
+            </ul>
+        </div>
+
+        <div class="item">
+            <div class="item-header">
+                <div class="item-title selectable">Machine Learning Intern</div>
+                <div class="item-date selectable">May 2025 - Jun 2025</div>
+            </div>
+            <div class="item-subtitle selectable">CODTECH IT Solutions | Remote</div>
+            <ul>
+                <li class="selectable">Built and trained ML models focusing on sentiment analysis using NLP techniques</li>
+                <li class="selectable">Applied Python, Pandas, NumPy, and Scikit-learn for data preprocessing and model evaluation</li>
+                <li class="selectable">Collaborated using GitHub for version control and strengthened ML pipeline understanding</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Technical Skills -->
+    <section class="section">
+        <h2>TECHNICAL SKILLS</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h4>Programming Languages</h4>
+                <div class="skill-list selectable">Python, Java, JavaScript, C++, SQL</div>
+            </div>
+            <div class="skill-category">
+                <h4>AI/ML Technologies</h4>
+                <div class="skill-list selectable">Machine Learning, NLP, TensorFlow, Scikit-learn, Pandas, NumPy</div>
+            </div>
+            <div class="skill-category">
+                <h4>Cloud Platforms</h4>
+                <div class="skill-list selectable">Google Cloud Platform, IBM Cloud, IBM Watson</div>
+            </div>
+            <div class="skill-category">
+                <h4>Tools & Frameworks</h4>
+                <div class="skill-list selectable">Git, GitHub, Looker Studio, Front-end Development</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="section">
+        <h2>CERTIFICATIONS</h2>
+        <ul>
+            <li class="selectable"><strong>Looker Studio Essentials</strong> - Google</li>
+            <li class="selectable"><strong>Introduction to Front-end Development</strong> - Meta</li>
+            <li class="selectable"><strong>Git and GitHub</strong> - Google</li>
+            <li class="selectable"><strong>Prompt Engineering for ChatGPT</strong> - Vanderbilt University</li>
+            <li class="selectable"><strong>Crash Course on Python</strong> - Google</li>
+            <li class="selectable"><strong>Generative AI</strong> - Google Cloud Skills Boost</li>
+        </ul>
+    </section>
+
+    <!-- Achievements -->
+    <section class="section">
+        <h2>ACHIEVEMENTS & ACTIVITIES</h2>
+        <ul>
+            <li class="selectable"><strong>Google Cloud Arcade Cohort 1 (2025):</strong> Successfully completed cloud-based challenges and earned skill badges</li>
+            <li class="selectable"><strong>Hackathons & Coding Events:</strong> Active participant applying AI/ML skills to problem-solving under pressure</li>
+            <li class="selectable"><strong>School Leadership:</strong> Elected as Vice Captain and Captain for Mercury Red House (9th-10th grade)</li>
+            <li class="selectable"><strong>Chess Competition:</strong> Runner-up for inter-school chess competition by RCA organization</li>
+        </ul>
+    </section>
+
     <script>
-        // Security measures for resume page
+        // Security measures
         (function() {
             'use strict';
             
@@ -33,128 +370,25 @@
             
             // Disable keyboard shortcuts
             document.addEventListener('keydown', function(e) {
-                // Block F12, F11, F10, F9
                 if ([112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123].includes(e.keyCode)) {
                     e.preventDefault();
                     return false;
                 }
                 
-                // Block Ctrl+Shift+I/J/K (DevTools)
                 if (e.ctrlKey && e.shiftKey && ['I', 'J', 'K', 'C'].includes(e.key.toUpperCase())) {
                     e.preventDefault();
                     return false;
                 }
                 
-                // Block Ctrl+U (View Source), Ctrl+S (Save), Ctrl+A (Select All), Ctrl+C/V/X
-                if (e.ctrlKey && ['u', 's', 'a', 'c', 'v', 'x', 'p'].includes(e.key.toLowerCase())) {
+                if (e.ctrlKey && ['u', 's', 'a', 'c', 'v', 'x'].includes(e.key.toLowerCase())) {
                     e.preventDefault();
                     return false;
                 }
             });
-            
-            // Disable text selection and dragging
-            document.onselectstart = function() { return false; };
-            document.ondragstart = function() { return false; };
-            
-            // Bot detection
-            const isBot = /bot|crawler|spider|crawling|scraper|headless|phantom|selenium|webdriver|puppeteer|playwright/i.test(navigator.userAgent);
-            if (isBot || navigator.webdriver) {
-                document.body.innerHTML = '<div style="text-align:center;padding:50px;color:#666;">Access denied.</div>';
-            }
-            
-            // Clear console
-            setInterval(() => console.clear(), 1000);
-            
         })();
     </script>
-    
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        /* Security: Disable text selection and dragging */
-        * {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
-        }
-        
-        /* Security: Disable image dragging */
-        img {
-            -webkit-user-drag: none;
-            -moz-user-drag: none;
-            pointer-events: none;
-        }
-        
-        /* Security: Prevent printing */
-        @media print {
-            * {
-                display: none !important;
-            }
-            body::before {
-                content: "Printing disabled for security reasons.";
-                display: block !important;
-                text-align: center;
-                padding: 50px;
-                font-size: 18px;
-            }
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .section-title {
-            position: relative;
-            padding-bottom: 8px;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-        .skill-tag {
-            transition: all 0.3s ease;
-        }
-        .skill-tag:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        .experience-card {
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-        .experience-card:hover {
-            border-left-color: #667eea;
-            transform: translateX(4px);
-        }
-        @media print {
-            body {
-                background: white !important;
-            }
-            .glass-card {
-                background: white !important;
-                -webkit-backdrop-filter: none !important;
-                backdrop-filter: none !important;
-                box-shadow: none !important;
-            }
-            .no-print {
-                display: none !important;
-            }
-        }
-    </style>
-</head>
+</body>
+</html>
 <body class="text-gray-800">
     <div class="min-h-screen py-8 px-4">
         <!-- Print/Download Controls -->
