@@ -1,22 +1,25 @@
-# 🔒 Security Features Documentation
+# 🔒 Enhanced Security Features Documentation - Version 2.0
 
-## Security Enhancements Implemented
+## Advanced Security Enhancements Implemented
 
-Your personal portfolio website now includes comprehensive security measures to protect your personal information and prevent unauthorized data extraction.
+Your personal portfolio website now includes comprehensive multi-layer security measures to protect your personal information and prevent unauthorized data extraction, scraping, and malicious access.
 
-### 🛡️ Core Security Features
+### 🛡️ Enhanced Core Security Features
 
-#### 1. **Content Security Policy (CSP)**
-- Restricts resource loading to trusted sources only
-- Prevents XSS attacks by controlling script execution
-- Blocks unauthorized external resource loading
+#### 1. **Advanced Content Security Policy (CSP)**
+- Restricts resource loading to trusted sources only with frame-ancestors protection
+- Prevents XSS attacks by controlling script execution and inline content
+- Blocks unauthorized external resource loading with upgrade-insecure-requests
+- Enhanced object-src blocking and form-action restrictions
 
-#### 2. **HTTP Security Headers**
-- `X-Content-Type-Options: nosniff` - Prevents MIME type sniffing
-- `X-Frame-Options: DENY` - Prevents clickjacking attacks
-- `X-XSS-Protection: 1; mode=block` - Built-in XSS protection
-- `Referrer-Policy: strict-origin-when-cross-origin` - Controls referrer information
-- `Permissions-Policy` - Disables unnecessary browser APIs (geolocation, camera, etc.)
+#### 2. **Comprehensive HTTP Security Headers**
+- `X-Content-Type-Options: nosniff` - Prevents MIME type sniffing attacks
+- `X-Frame-Options: DENY` - Complete clickjacking attack prevention
+- `X-XSS-Protection: 1; mode=block` - Browser XSS protection with blocking
+- `Referrer-Policy: strict-origin-when-cross-origin` - Strict referrer control
+- `Permissions-Policy` - Comprehensive API blocking (geolocation, camera, microphone, clipboard, etc.)
+- `Strict-Transport-Security` - HTTPS enforcement with preload and subdomains
+- `Cache-Control: no-store, no-cache` - Prevents sensitive data caching
 
 #### 3. **Bot Protection**
 - Basic bot detection using User-Agent analysis

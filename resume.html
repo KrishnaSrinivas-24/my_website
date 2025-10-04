@@ -4,17 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krishna Srinivas - Resume</title>
+    
+    <!-- Enhanced Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), screen-wake-lock=(), accelerometer=(), gyroscope=(), magnetometer=(), clipboard-read=(), clipboard-write=()">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        // Security measures for resume page
+        (function() {
+            'use strict';
+            
+            // Disable right-click
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Block F12, F11, F10, F9
+                if ([112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123].includes(e.keyCode)) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Block Ctrl+Shift+I/J/K (DevTools)
+                if (e.ctrlKey && e.shiftKey && ['I', 'J', 'K', 'C'].includes(e.key.toUpperCase())) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Block Ctrl+U (View Source), Ctrl+S (Save), Ctrl+A (Select All), Ctrl+C/V/X
+                if (e.ctrlKey && ['u', 's', 'a', 'c', 'v', 'x', 'p'].includes(e.key.toLowerCase())) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Disable text selection and dragging
+            document.onselectstart = function() { return false; };
+            document.ondragstart = function() { return false; };
+            
+            // Bot detection
+            const isBot = /bot|crawler|spider|crawling|scraper|headless|phantom|selenium|webdriver|puppeteer|playwright/i.test(navigator.userAgent);
+            if (isBot || navigator.webdriver) {
+                document.body.innerHTML = '<div style="text-align:center;padding:50px;color:#666;">Access denied.</div>';
+            }
+            
+            // Clear console
+            setInterval(() => console.clear(), 1000);
+            
+        })();
+    </script>
+    
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
+        
+        /* Security: Disable text selection and dragging */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+        
+        /* Security: Disable image dragging */
+        img {
+            -webkit-user-drag: none;
+            -moz-user-drag: none;
+            pointer-events: none;
+        }
+        
+        /* Security: Prevent printing */
+        @media print {
+            * {
+                display: none !important;
+            }
+            body::before {
+                content: "Printing disabled for security reasons.";
+                display: block !important;
+                text-align: center;
+                padding: 50px;
+                font-size: 18px;
+            }
+        }
         .glass-card {
             background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
@@ -53,6 +145,7 @@
             }
             .glass-card {
                 background: white !important;
+                -webkit-backdrop-filter: none !important;
                 backdrop-filter: none !important;
                 box-shadow: none !important;
             }
@@ -95,7 +188,7 @@
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-globe mr-2 text-blue-600"></i>
-                            <a href="https://krishnasrinivas-24.github.io/my_website/" target="_blank" class="hover:text-blue-600 transition-colors duration-300">Portfolio Website</a>
+                            <a href="https://krishnasrinivas-24.github.io/my_website/" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600 transition-colors duration-300">Portfolio Website</a>
                         </div>
                     </div>
                 </header>
