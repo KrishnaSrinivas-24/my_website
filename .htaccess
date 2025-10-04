@@ -1,5 +1,6 @@
 # Enhanced Security Configuration for Portfolio Website
-# This file provides server-level security configurations for Apache servers
+
+## This file provides server-level security configurations for Apache servers
 
 # ==============================================================================
 # SECURITY HEADERS
