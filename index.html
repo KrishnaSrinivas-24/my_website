@@ -303,22 +303,23 @@
     <script src="https://unpkg.com/@heroicons/react@v1/outline/index.js" type="module"></script>
     
     <style>
-        /* Elite Dark Professional Styles - Shelby x Specter x Stark */
+        /* Iron Man Tony Stark Theme - Arc Reactor Powered */
         :root {
-            --primary-bg: #0a0a0a;
-            --secondary-bg: #111111;
-            --accent-bg: #1a1a1a;
-            --card-bg: #161616;
+            --primary-bg: #0c0c0c;
+            --secondary-bg: #1a0f0f;
+            --accent-bg: #2a1515;
+            --card-bg: #1c1111;
             --primary-text: #ffffff;
-            --secondary-text: #b8b8b8;
-            --accent-text: #888888;
-            --border-color: #2a2a2a;
-            --hover-bg: #1f1f1f;
-            --gold-accent: #d4af37;
-            --tech-blue: #00d4ff;
-            --power-red: #ff0040;
-            --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.5);
-            --shadow-glow: 0 0 30px rgba(0, 212, 255, 0.1);
+            --secondary-text: #e0e0e0;
+            --accent-text: #b0b0b0;
+            --border-color: #3a2222;
+            --hover-bg: #2f1a1a;
+            --stark-gold: #ffd700;
+            --iron-red: #dc143c;
+            --arc-blue: #00bfff;
+            --repulsor-glow: #40e0d0;
+            --shadow-dark: 0 4px 20px rgba(220, 20, 60, 0.3);
+            --shadow-glow: 0 0 30px rgba(255, 215, 0, 0.2);
             --radius-sm: 0.25rem;
             --radius-md: 0.5rem;
             --radius-lg: 0.75rem;
@@ -333,9 +334,10 @@
             line-height: 1.6;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(255, 0, 64, 0.02) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(220, 20, 60, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 191, 255, 0.03) 0%, transparent 50%),
+                linear-gradient(135deg, rgba(220, 20, 60, 0.02) 0%, rgba(255, 215, 0, 0.01) 100%);
         }
 
         /* Typography - Sharp & Sophisticated */
@@ -345,7 +347,7 @@
             letter-spacing: -0.02em;
         }
 
-        /* Custom scrollbar - Tech style */
+        /* Custom scrollbar - Arc Reactor style */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -355,12 +357,14 @@
         }
         
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, var(--tech-blue), var(--gold-accent));
+            background: linear-gradient(45deg, var(--iron-red), var(--stark-gold));
             border-radius: 4px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, var(--gold-accent), var(--tech-blue));
+            background: linear-gradient(45deg, var(--stark-gold), var(--iron-red));
+            box-shadow: 0 0 15px rgba(220, 20, 60, 0.4);
         }
 
         /* Elite transitions */
@@ -368,12 +372,13 @@
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Navigation - Power styling */
+        /* Navigation - Iron Man HUD styling */
         .nav-container {
-            background: rgba(10, 10, 10, 0.95);
+            background: rgba(12, 12, 12, 0.95);
+            -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 20px rgba(220, 20, 60, 0.2);
         }
 
         .nav-link {
@@ -389,15 +394,15 @@
         }
 
         .nav-link:hover {
-            color: var(--tech-blue);
+            color: var(--stark-gold);
             background: var(--hover-bg);
-            box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.1);
+            box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.1);
         }
 
         .nav-link.active {
-            color: var(--gold-accent);
+            color: var(--iron-red);
             background: var(--accent-bg);
-            box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.1);
+            box-shadow: inset 0 0 20px rgba(220, 20, 60, 0.1);
         }
 
         .nav-link::before {
@@ -407,9 +412,10 @@
             left: 50%;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--tech-blue), var(--gold-accent));
+            background: linear-gradient(90deg, var(--iron-red), var(--stark-gold));
             transition: all 0.3s ease;
             transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
 
         .nav-link:hover::before,
@@ -417,7 +423,7 @@
             width: 80%;
         }
 
-        /* Hero Section - Stark-level tech */
+        /* Hero Section - Arc Reactor powered */
         .hero-gradient {
             background: linear-gradient(135deg, 
                 var(--primary-bg) 0%, 
@@ -436,19 +442,20 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 30% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
-                linear-gradient(45deg, transparent 30%, rgba(0, 212, 255, 0.02) 50%, transparent 70%);
-            animation: techPulse 8s ease-in-out infinite;
+                radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(220, 20, 60, 0.08) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 30%, rgba(0, 191, 255, 0.03) 50%, transparent 70%);
+            animation: arcReactorPulse 6s ease-in-out infinite;
         }
 
-        @keyframes techPulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.8; }
+        @keyframes arcReactorPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
 
         .hero-content {
-            background: rgba(22, 22, 22, 0.8);
+            background: rgba(28, 17, 17, 0.85);
+            -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-xl);
@@ -464,15 +471,15 @@
             right: 0;
             bottom: 0;
             background: linear-gradient(45deg, 
-                rgba(0, 212, 255, 0.05) 0%, 
+                rgba(255, 215, 0, 0.06) 0%, 
                 transparent 30%, 
-                rgba(212, 175, 55, 0.05) 70%, 
+                rgba(220, 20, 60, 0.05) 70%, 
                 transparent 100%);
             border-radius: var(--radius-xl);
             pointer-events: none;
         }
 
-        /* Elite Cards */
+        /* Iron Man Tech Cards */
         .elite-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -492,7 +499,7 @@
             height: 100%;
             background: linear-gradient(90deg, 
                 transparent, 
-                rgba(0, 212, 255, 0.1), 
+                rgba(255, 215, 0, 0.12), 
                 transparent);
             transition: left 0.6s ease;
         }
@@ -501,16 +508,16 @@
             transform: translateY(-8px);
             box-shadow: 
                 var(--shadow-dark),
-                0 0 30px rgba(0, 212, 255, 0.2),
-                inset 0 0 40px rgba(0, 212, 255, 0.05);
-            border-color: var(--tech-blue);
+                0 0 30px rgba(255, 215, 0, 0.3),
+                inset 0 0 40px rgba(220, 20, 60, 0.05);
+            border-color: var(--stark-gold);
         }
 
         .elite-card:hover::before {
             left: 100%;
         }
 
-        /* Project Cards - Specter style */
+        /* Project Cards - Iron Man HUD style */
         .project-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -527,7 +534,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--tech-blue), var(--gold-accent), var(--power-red));
+            background: linear-gradient(90deg, var(--iron-red), var(--stark-gold), var(--arc-blue));
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -535,19 +542,19 @@
         .project-card:hover {
             transform: translateY(-6px);
             box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.4),
-                0 0 0 1px var(--tech-blue);
-            border-color: var(--tech-blue);
+                0 20px 40px rgba(220, 20, 60, 0.3),
+                0 0 0 1px var(--iron-red);
+            border-color: var(--iron-red);
         }
 
         .project-card:hover::after {
             opacity: 1;
         }
 
-        /* Skill Tags - Tech style */
+        /* Skill Tags - Arc Reactor tech style */
         .skill-tag {
             background: linear-gradient(135deg, var(--accent-bg), var(--card-bg));
-            color: var(--tech-blue);
+            color: var(--stark-gold);
             padding: 0.5rem 1rem;
             border-radius: var(--radius-sm);
             font-size: 0.875rem;
@@ -559,15 +566,15 @@
         }
 
         .skill-tag:hover {
-            background: linear-gradient(135deg, var(--tech-blue), var(--gold-accent));
+            background: linear-gradient(135deg, var(--iron-red), var(--stark-gold));
             color: var(--primary-bg);
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
         }
 
-        /* Buttons - Power style */
+        /* Buttons - Repulsor power style */
         .btn-primary {
-            background: linear-gradient(135deg, var(--tech-blue), var(--gold-accent));
+            background: linear-gradient(135deg, var(--iron-red), var(--stark-gold));
             color: var(--primary-bg);
             font-weight: 700;
             padding: 1rem 2.5rem;
@@ -589,15 +596,15 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s ease;
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.3),
-                0 0 30px rgba(0, 212, 255, 0.4);
+                0 10px 30px rgba(220, 20, 60, 0.4),
+                0 0 30px rgba(255, 215, 0, 0.5);
         }
 
         .btn-primary:hover::before {
@@ -607,7 +614,7 @@
         .btn-secondary {
             background: var(--card-bg);
             color: var(--primary-text);
-            border: 2px solid var(--tech-blue);
+            border: 2px solid var(--iron-red);
             font-weight: 600;
             padding: 1rem 2.5rem;
             border-radius: var(--radius-md);
@@ -618,10 +625,10 @@
         }
 
         .btn-secondary:hover {
-            background: var(--tech-blue);
+            background: var(--iron-red);
             color: var(--primary-bg);
             transform: translateY(-3px);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+            box-shadow: 0 0 30px rgba(220, 20, 60, 0.5);
         }
 
         /* Section Spacing */
@@ -629,16 +636,16 @@
             padding: 6rem 0;
         }
 
-        /* Profile Image - Stark tech style */
+        /* Profile Image - Arc Reactor tech style */
         .profile-image {
             width: 220px;
             height: 220px;
             object-fit: cover;
             border-radius: 50%;
-            border: 3px solid var(--tech-blue);
+            border: 3px solid var(--stark-gold);
             box-shadow: 
-                0 0 40px rgba(0, 212, 255, 0.3),
-                inset 0 0 40px rgba(0, 0, 0, 0.2);
+                0 0 40px rgba(255, 215, 0, 0.4),
+                inset 0 0 40px rgba(220, 20, 60, 0.1);
             transition: all 0.4s ease;
         }
 
@@ -689,12 +696,13 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        /* Floating Elements - Tech style */
+        /* Floating Elements - Arc Reactor HUD style */
         .floating-tab {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-dark);
+            -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
             transition: all 0.3s ease;
             color: var(--primary-text);
@@ -703,9 +711,9 @@
         .floating-tab:hover {
             box-shadow: 
                 var(--shadow-dark),
-                0 0 30px rgba(0, 212, 255, 0.3);
+                0 0 30px rgba(255, 215, 0, 0.4);
             transform: translateY(-3px);
-            border-color: var(--tech-blue);
+            border-color: var(--stark-gold);
         }
 
         /* Security & Performance */
