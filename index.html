@@ -20,6 +20,7 @@
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <meta name="cache-buster" content="20241228-001">
     
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="AI Engineer Portfolio">
@@ -1048,7 +1049,7 @@
                                                 href: project.link,
                                                 target: "_blank",
                                                 rel: "noopener noreferrer nofollow",
-                                                className: "inline-flex items-center px-4 py-2 bg-white text-black hover:bg-gray-200 rounded-lg hover-transition text-sm bot-protection"
+                                                className: "inline-flex items-center px-4 py-2 bg-white text-black hover:bg-gray-200 rounded-lg hover-transition text-sm content-protection"
                                             }, [
                                                 React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-4 h-4 mr-2" }),
                                                 "GitHub"
@@ -1058,7 +1059,7 @@
                                                 href: project.liveLink,
                                                 target: "_blank",
                                                 rel: "noopener noreferrer nofollow",
-                                                className: "inline-flex items-center px-4 py-2 bg-white/10 text-white hover:bg-white/20 rounded-lg hover-transition text-sm bot-protection border border-white/20"
+                                                className: "inline-flex items-center px-4 py-2 bg-white/10 text-white hover:bg-white/20 rounded-lg hover-transition text-sm content-protection border border-white/20"
                                             }, [
                                                 React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-4 h-4 mr-2" }),
                                                 "Live Demo"
@@ -1804,7 +1805,7 @@
                                     React.createElement('a', {
                                         key: 'email',
                                         href: `mailto:${personalInfo.email}`,
-                                        className: "group inline-flex items-center px-8 py-4 bg-white text-black hover:bg-gray-200 font-semibold rounded-lg transition-colors duration-200 bot-protection",
+                                        className: "group inline-flex items-center px-8 py-4 bg-white text-black hover:bg-gray-200 font-semibold rounded-lg transition-colors duration-200 content-protection",
                                         onClick: (e) => {
                                             // Security: Additional protection for email
                                             if (!personalInfo.email) {
@@ -1821,7 +1822,7 @@
                                         href: atob('aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2luL2tyaXNobmFzcmluaXZhcy0='), // Base64 encoded
                                         target: "_blank",
                                         rel: "noopener noreferrer nofollow",
-                                        className: "group inline-flex items-center px-8 py-4 bg-white/10 text-white hover:bg-white/20 font-semibold rounded-lg transition-colors duration-200 bot-protection border border-white/20"
+                                        className: "group inline-flex items-center px-8 py-4 bg-white/10 text-white hover:bg-white/20 font-semibold rounded-lg transition-colors duration-200 content-protection border border-white/20"
                                     }, [
                                         React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-5 h-5 mr-3" }),
                                         "LinkedIn"
@@ -1831,7 +1832,7 @@
                                         href: atob('aHR0cHM6Ly9naXRodWIuY29tL0tyaXNobmFTcmluaXZhcy0yNA=='), // Base64 encoded
                                         target: "_blank",
                                         rel: "noopener noreferrer nofollow",
-                                        className: "group inline-flex items-center px-8 py-4 bg-white/10 text-white hover:bg-white/20 font-semibold rounded-lg transition-colors duration-200 bot-protection border border-white/20"
+                                        className: "group inline-flex items-center px-8 py-4 bg-white/10 text-white hover:bg-white/20 font-semibold rounded-lg transition-colors duration-200 content-protection border border-white/20"
                                     }, [
                                         React.createElement(ExternalLinkIcon, { key: 'icon', className: "w-5 h-5 mr-3" }),
                                         "GitHub"
