@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKS - CLASSIFIED ACCESS</title>
+    
+    <!-- SHIELD-Level Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; upgrade-insecure-requests;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Orbitron:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+        
+        :root {
+            --red-accent: #8b0000;
+            --blue-accent: #1e3a8a;
+            --red-glow: rgba(139, 0, 0, 0.6);
+            --blue-glow: rgba(30, 58, 138, 0.4);
+        }
+        
+        /* SHIELD Logo Shield Shape */
+        .shield-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            background: radial-gradient(circle at center, #0a0000 0%, #000000 100%);
+        }
+        
+        .shield-logo {
+            position: relative;
+            width: 300px;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* MKS Shield SVG Shape */
+        .shield-svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 30px var(--red-glow)) drop-shadow(0 0 20px var(--blue-glow));
+        }
+        
+        /* Shield Opening Animation */
+        .shield-part {
+            transform-origin: center;
+            transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .shield-opening .shield-top {
+            transform: translateY(-150px) scale(0.3);
+            opacity: 0;
+        }
+        
+        .shield-opening .shield-left {
+            transform: translateX(-150px) rotate(-90deg) scale(0.3);
+            opacity: 0;
+        }
+        
+        .shield-opening .shield-right {
+            transform: translateX(150px) rotate(90deg) scale(0.3);
+            opacity: 0;
+        }
+        
+        .shield-opening .shield-bottom {
+            transform: translateY(150px) scale(0.3);
+            opacity: 0;
+        }
+        
+        /* MKS Text */
+        .mks-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 72px;
+            font-weight: 900;
+            letter-spacing: 8px;
+            background: linear-gradient(135deg, #8b0000 0%, #1e3a8a 50%, #8b0000 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px var(--red-glow), 0 0 20px var(--blue-glow);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.8s ease;
+        }
+        
+        .shield-opening .mks-text {
+            opacity: 1;
+            transform: scale(1);
+            transition-delay: 0.3s;
+        }
+        
+        /* Nanotech Particles */
+        .nanoparticle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(135deg, #8b0000, #1e3a8a);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--red-glow), 0 0 8px var(--blue-glow);
+            pointer-events: none;
+        }
+        
+        /* Security Clearance UI */
+        .security-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        .security-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .clearance-panel {
+            background: linear-gradient(135deg, #0a0a0a 0%, #0f0f1a 100%);
+            border: 2px solid var(--red-accent);
+            border-radius: 4px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 0 40px var(--red-glow),
+                        0 0 30px var(--blue-glow),
+                        inset 0 0 30px rgba(30, 58, 138, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .clearance-panel::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--red-accent), transparent, var(--blue-accent), transparent);
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.3;
+        }
+        
+        .classified-stamp {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--red-accent), var(--blue-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .clearance-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.8;
+        }
+        
+        .clearance-text strong {
+            color: #fff;
+        }
+        
+        .access-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--red-accent) 0%, #000 50%, var(--blue-accent) 100%);
+            border: 2px solid var(--red-accent);
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            box-shadow: 0 5px 25px var(--red-glow);
+            animation: buttonPulse 2s ease-in-out infinite;
+        }
+        
+        .access-button:hover {
+            background: linear-gradient(135deg, var(--blue-accent) 0%, #000 50%, var(--red-accent) 100%);
+            border-color: var(--blue-accent);
+            box-shadow: 0 8px 35px var(--blue-glow);
+            transform: translateY(-2px);
+            animation: none;
+        }
+        
+        @keyframes buttonPulse {
+            0%, 100% {
+                box-shadow: 0 5px 25px var(--red-glow);
+                border-color: var(--red-accent);
+            }
+            50% {
+                box-shadow: 0 8px 30px var(--blue-glow);
+                border-color: var(--blue-accent);
+            }
+        }
+        
+        .skip-intro {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .skip-intro:hover {
+            color: #dc143c;
+        }
+        
+        .security-code {
+            font-family: 'Orbitron', monospace;
+            font-size: 10px;
+            background: linear-gradient(135deg, var(--red-accent), var(--blue-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-top: 20px;
+            opacity: 0.6;
+            letter-spacing: 2px;
+        }
+        
+        /* Main Content Reveal */
+        .main-content {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+        
+        .main-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Hero Section - Tactical Dark Theme */
+        .hero-gradient {
+            min-height: 100vh;
+            background: linear-gradient(180deg, 
+                #000000 0%, 
+                #0a0a14 25%,
+                #050510 50%,
+                #0a0a14 75%,
+                #000000 100%
+            );
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, var(--red-glow) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, var(--blue-glow) 0%, transparent 50%);
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        
+        /* Grid Overlay - Tactical Tech */
+        .hero-gradient::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(139, 0, 0, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 58, 138, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        
+        .nav-container {
+            border-bottom: 2px solid var(--red-accent);
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px var(--red-glow), 0 2px 10px var(--blue-glow);
+        }
+        
+        .nav-link {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #fff;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+        
+        .nav-link:hover {
+            color: var(--red-accent);
+            text-shadow: 0 0 10px var(--red-glow), 0 0 5px var(--blue-glow);
+        }
+        
+        /* Hero Content */
+        .hero-content {
+            border: 2px solid var(--red-accent);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 
+                0 0 30px var(--red-glow),
+                0 0 20px var(--blue-glow),
+                inset 0 0 30px rgba(30, 58, 138, 0.05);
+            position: relative;
+        }
+        
+        .hero-content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--red-accent), transparent, var(--blue-accent), transparent);
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.3;
+        }
+        
+        .classified-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--red-accent), var(--blue-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 56px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff 0%, var(--red-accent) 30%, var(--blue-accent) 70%, #fff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            color: #a0a0a0;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .hero-content p {
+            color: #b0b0b0;
+        }
+        
+        .security-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(30, 58, 138, 0.1);
+            border: 1px solid var(--blue-accent);
+            border-radius: 2px;
+            font-family: 'Orbitron', monospace;
+            font-size: 11px;
+            color: var(--blue-accent);
+            letter-spacing: 2px;
+            margin-top: 20px;
+        }
+        
+        /* Tactical Button */
+        .cta-button {
+            padding: 14px 36px;
+            background: linear-gradient(135deg, var(--red-accent) 0%, #000 50%, var(--blue-accent) 100%);
+            border: 1px solid var(--red-accent);
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            box-shadow: 0 5px 20px var(--red-glow);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            background: linear-gradient(135deg, var(--blue-accent) 0%, #000 50%, var(--red-accent) 100%);
+            border-color: var(--blue-accent);
+            box-shadow: 0 8px 30px var(--blue-glow);
+            transform: translateY(-2px);
+        }
+        
+        /* Nanotech Animation */
+        @keyframes hotRodPulse {
+            0%, 100% {
+                filter: brightness(1) saturate(1);
+            }
+            50% {
+                filter: brightness(1.3) saturate(1.4);
+            }
+        }
+        
+        .animate-pulse-red {
+            animation: hotRodPulse 2s ease-in-out infinite;
+        }
+        
+        /* Scan Line Effect */
+        @keyframes scanline {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+        
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--red-accent), var(--blue-accent), transparent);
+            animation: scanline 5s linear infinite;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.2;
+        }
+        
+        /* Projects Section */
+        .project-card {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            border-color: var(--blue-accent);
+            box-shadow: 0 10px 30px var(--blue-glow), 0 5px 15px var(--red-glow);
+            transform: translateY(-5px);
+        }
+        
+        .project-tag {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: rgba(30, 58, 138, 0.2);
+            border: 1px solid var(--blue-accent);
+            border-radius: 3px;
+            color: #a0a0a0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .mks-text {
+                font-size: 48px;
+            }
+            
+            .shield-logo {
+                width: 200px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scan Line Effect -->
+    <div class="scanline"></div>
+
+    <!-- SHIELD Security Clearance -->
+    <div class="security-overlay" id="securityOverlay">
+        <div class="clearance-panel">
+            <div class="classified-stamp">⬢ ACCESS REQUIRED ⬢</div>
+            <div class="clearance-text">
+                <strong>SECURITY CLEARANCE: LEVEL ALPHA</strong><br>
+                AUTHORIZATION REQUIRED TO VIEW PROFILE<br><br>
+                Protected by advanced encryption protocols.<br>
+                All access attempts are monitored.
+            </div>
+            <button class="access-button" id="accessButton">
+                GRANT ACCESS
+            </button>
+            <div class="skip-intro" id="skipIntro">
+                or click anywhere to skip intro
+            </div>
+            <div class="security-code">
+                PROTOCOL: MKS-85-NANOTECH :: CLEARANCE-ALPHA
+            </div>
+        </div>
+    </div>
+
+    <!-- MKS Shield Logo Intro -->
+    <div class="shield-container" id="shieldContainer">
+        <div class="shield-logo" id="shieldLogo">
+            <svg class="shield-svg" viewBox="0 0 300 350" xmlns="http://www.w3.org/2000/svg">
+                <!-- Top Part -->
+                <path class="shield-part shield-top" d="M 150 10 L 50 70 L 50 130 L 150 130 Z" 
+                      fill="url(#shieldGradient)" stroke="#dc143c" stroke-width="3"/>
+                
+                <!-- Left Part -->
+                <path class="shield-part shield-left" d="M 50 130 L 50 250 L 150 310 L 150 130 Z" 
+                      fill="url(#shieldGradient)" stroke="#dc143c" stroke-width="3"/>
+                
+                <!-- Right Part -->
+                <path class="shield-part shield-right" d="M 150 130 L 150 310 L 250 250 L 250 130 Z" 
+                      fill="url(#shieldGradient)" stroke="#dc143c" stroke-width="3"/>
+                
+                <!-- Bottom Part -->
+                <path class="shield-part shield-bottom" d="M 50 250 L 150 310 L 250 250 L 150 250 Z" 
+                      fill="url(#shieldGradient)" stroke="#dc143c" stroke-width="3"/>
+                
+                <!-- Gradients -->
+                <defs>
+                    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1a0000;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#dc143c;stop-opacity:0.5" />
+                        <stop offset="100%" style="stop-color:#0a0000;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            
+            <!-- MKS Text -->
+            <div class="mks-text">MKS</div>
+        </div>
+        
+        <!-- Nanoparticles Container -->
+        <div id="nanoparticles"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Navigation -->
+        <nav class="nav-container fixed w-full top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="nav-link font-black text-xl tracking-wider">
+                        <span style="color: #dc143c;">⬢</span> MKS
+                    </div>
+                    <div class="flex gap-8">
+                    <a href="#about" class="nav-link">Intel</a>
+                    <a href="#projects" class="nav-link">Operations</a>
+                    <a href="#skills" class="nav-link">Arsenal</a>
+                    <a href="resume.html" target="_blank" class="nav-link">Resume</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-gradient pt-32 pb-20">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="min-h-screen flex items-center justify-center">
+                    <div class="hero-content p-12 rounded-lg max-w-4xl animate-pulse-red">
+                        <div class="classified-header">◈ OPERATIVE FILE ◈</div>
+                        <h1 class="hero-title">
+                            MADHIRA KRISHNA<br>SRINIVAS
+                        </h1>
+                        <p class="hero-subtitle">
+                            AI Engineer | Full-Stack Developer | Machine Learning Specialist
+                        </p>
+                        <p class="text-gray-300 text-lg mb-8 max-w-2xl">
+                            Level-Alpha operative specializing in artificial intelligence operations, 
+                            advanced code architecture, and tactical system deployment. 
+                            Expertise in covert AI development and strategic implementation.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="#projects" class="cta-button">
+                                VIEW OPERATIONS
+                            </a>
+                            <a href="resume.html" target="_blank" class="cta-button">
+                                VIEW RESUME
+                            </a>
+                        </div>
+                        <div class="security-badge">
+                            CLEARANCE: ALPHA | ID: MKS-2024
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-black">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="project-card p-8 rounded-lg">
+                    <h2 class="text-4xl font-bold mb-8 text-center" style="font-family: 'Orbitron', sans-serif; background: linear-gradient(135deg, var(--red-accent), var(--blue-accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                        ◈ INTELLIGENCE BRIEF ◈
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4" style="font-family: 'Orbitron', sans-serif;">OPERATIVE PROFILE</h3>
+                            <p class="text-gray-300 leading-relaxed">
+                                AI Engineer with advanced expertise in machine learning, deep learning, 
+                                and full-stack development. Authorized for deployment of 
+                                mission-critical applications involving React, Python, 
+                                TensorFlow, and AI systems.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4" style="font-family: 'Orbitron', sans-serif;">OBJECTIVES</h3>
+                            <ul class="text-gray-300 space-y-2">
+                                <li>⬢ Deploy AI-powered solutions for complex challenges</li>
+                                <li>⬢ Build secure, scalable full-stack applications</li>
+                                <li>⬢ Develop advanced machine learning models</li>
+                                <li>⬢ Execute strategic code deployments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 hero-gradient">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="text-4xl font-bold mb-12 text-center" style="font-family: 'Orbitron', sans-serif; background: linear-gradient(135deg, var(--red-accent), var(--blue-accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    ◈ ACTIVE OPERATIONS ◈
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- FLOATCHAT -->
+                    <div class="project-card p-6 rounded-lg">
+                        <div class="text-xs font-bold mb-2" style="color: var(--red-accent); font-family: 'Orbitron', sans-serif;">
+                            [OPERATION] FLOATCHAT
+                        </div>
+                        <h3 class="text-xl font-bold mb-3" style="font-family: 'Orbitron', sans-serif;">
+                            AI Ocean Data Platform
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            RAG Text-to-SQL for Smart India Hackathon 2025. Real-time chat with ARGO ocean data, interactive maps, and Plotly visualizations.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="project-tag">TypeScript</span>
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">FastAPI</span>
+                            <span class="project-tag">PostgreSQL</span>
+                        </div>
+                    </div>
+
+                    <!-- LearnMate -->
+                    <div class="project-card p-6 rounded-lg">
+                        <div class="text-xs font-bold mb-2" style="color: var(--red-accent); font-family: 'Orbitron', sans-serif;">
+                            [OPERATION] LEARNMATE
+                        </div>
+                        <h3 class="text-xl font-bold mb-3" style="font-family: 'Orbitron', sans-serif;">
+                            AI Educational Chatbot
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            IBM Watsonx.ai powered tutor with Granite 3.3 8B and Llama 3 models. Real-time streaming responses.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">IBM Watsonx</span>
+                        </div>
+                    </div>
+
+                    <!-- ML_TERM-PROJECT -->
+                    <div class="project-card p-6 rounded-lg">
+                        <div class="text-xs font-bold mb-2" style="color: var(--red-accent); font-family: 'Orbitron', sans-serif;">
+                            [OPERATION] SENTINEL
+                        </div>
+                        <h3 class="text-xl font-bold mb-3" style="font-family: 'Orbitron', sans-serif;">
+                            Satellite Image Classifier
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Land use classification with 5 ML models (Random Forest, SVM, Gradient Boosting). Streamlit web app with dark/light mode.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">TensorFlow</span>
+                            <span class="project-tag">Streamlit</span>
+                        </div>
+                    </div>
+
+                    <!-- JARVIS -->
+                    <div class="project-card p-6 rounded-lg">
+                        <div class="text-xs font-bold mb-2" style="color: var(--red-accent); font-family: 'Orbitron', sans-serif;">
+                            [OPERATION] J.A.R.V.I.S.
+                        </div>
+                        <h3 class="text-xl font-bold mb-3" style="font-family: 'Orbitron', sans-serif;">
+                            AI Command Interface
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Just A Rather Very Intelligent System. Voice-activated tactical assistant powered by Gemini AI. Initiates applications and executes commands on verbal authorization.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Gemini AI</span>
+                            <span class="project-tag">Voice Control</span>
+                        </div>
+                    </div>
+
+                    <!-- ML Project 1: Decision Tree -->
+                    <div class="project-card p-6 rounded-lg">
+                        <div class="text-xs font-bold mb-2" style="color: var(--red-accent); font-family: 'Orbitron', sans-serif;">
+                            [OPERATION] BATTLEGROUND-ANALYSIS
+                        </div>
+                        <h3 class="text-xl font-bold mb-3" style="font-family: 'Orbitron', sans-serif;">
+                            Weapon Classification System
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Decision Tree classifier analyzing PUBG weapon statistics. Tactical advantage prediction for combat scenarios.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Scikit-learn</span>
+                            <span class="project-tag">Decision Trees</span>
+                        </div>
+                    </div>
+
+                    <!-- ML Project 2: Sentiment Analysis -->
+                    <div class="project-card p-6 rounded-lg">
+                        <div class="text-xs font-bold mb-2" style="color: var(--red-accent); font-family: 'Orbitron', sans-serif;">
+                            [OPERATION] SENTIMENT-RECON
+                        </div>
+                        <h3 class="text-xl font-bold mb-3" style="font-family: 'Orbitron', sans-serif;">
+                            Intelligence Gathering NLP
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Sentiment analysis on Samsung product reviews using TF-IDF vectorization. Tactical market intelligence extraction.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">NLP</span>
+                            <span class="project-tag">TF-IDF</span>
+                        </div>
+                    </div>
+
+                    <!-- ML Project 3: CNN MNIST -->
+                    <div class="project-card p-6 rounded-lg">
+                        <div class="text-xs font-bold mb-2" style="color: var(--red-accent); font-family: 'Orbitron', sans-serif;">
+                            [OPERATION] VISUAL-RECOGNITION
+                        </div>
+                        <h3 class="text-xl font-bold mb-3" style="font-family: 'Orbitron', sans-serif;">
+                            Neural Pattern Detection
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Convolutional Neural Network on MNIST dataset. 98%+ accuracy in digit recognition for secure authentication systems.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">TensorFlow</span>
+                            <span class="project-tag">CNN</span>
+                        </div>
+                    </div>
+
+                    <!-- ML Project 4: Movie Recommendation -->
+                    <div class="project-card p-6 rounded-lg">
+                        <div class="text-xs font-bold mb-2" style="color: var(--red-accent); font-family: 'Orbitron', sans-serif;">
+                            [OPERATION] PREDICTIVE-INTEL
+                        </div>
+                        <h3 class="text-xl font-bold mb-3" style="font-family: 'Orbitron', sans-serif;">
+                            Recommendation Algorithm
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            SVD-based movie recommendation system on MovieLens 100k dataset. Advanced collaborative filtering for pattern prediction.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">SVD</span>
+                            <span class="project-tag">ML</span>
+                        </div>
+                    </div>
+
+                    <!-- my_website -->
+                    <div class="project-card p-6 rounded-lg">
+                        <div class="text-xs font-bold mb-2" style="color: var(--red-accent); font-family: 'Orbitron', sans-serif;">
+                            [OPERATION] MARK-85
+                        </div>
+                        <h3 class="text-xl font-bold mb-3" style="font-family: 'Orbitron', sans-serif;">
+                            Nanotech Portfolio Interface
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Mark 85 armor-inspired portfolio with MKS shield deployment sequence. Nanotech particle assembly animation with tactical UI design.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">Nanotech Animation</span>
+                            <span class="project-tag">SHIELD Theme</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills/Arsenal Section -->
+        <section id="skills" class="py-12 bg-black">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="text-4xl font-bold mb-12 text-center" style="font-family: 'Orbitron', sans-serif; background: linear-gradient(135deg, var(--red-accent), var(--blue-accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    ◈ TACTICAL ARSENAL ◈
+                </h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Programming Languages -->
+                    <div class="project-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-4" style="font-family: 'Orbitron', sans-serif; color: var(--red-accent);">
+                            PROGRAMMING LANGUAGES
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Java</span>
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">C++</span>
+                            <span class="project-tag">SQL</span>
+                        </div>
+                    </div>
+
+                    <!-- AI & ML -->
+                    <div class="project-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-4" style="font-family: 'Orbitron', sans-serif; color: var(--blue-accent);">
+                            AI & MACHINE LEARNING
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="project-tag">Machine Learning</span>
+                            <span class="project-tag">NLP</span>
+                            <span class="project-tag">TensorFlow</span>
+                            <span class="project-tag">PyTorch</span>
+                            <span class="project-tag">Keras</span>
+                            <span class="project-tag">Scikit-learn</span>
+                            <span class="project-tag">OpenCV</span>
+                            <span class="project-tag">Computer Vision</span>
+                            <span class="project-tag">Pandas</span>
+                            <span class="project-tag">NumPy</span>
+                        </div>
+                    </div>
+
+                    <!-- Web Technologies -->
+                    <div class="project-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-4" style="font-family: 'Orbitron', sans-serif; color: var(--red-accent);">
+                            WEB TECHNOLOGIES
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">Express</span>
+                            <span class="project-tag">FastAPI</span>
+                            <span class="project-tag">Socket.io</span>
+                            <span class="project-tag">Streamlit</span>
+                            <span class="project-tag">TypeScript</span>
+                            <span class="project-tag">HTML/CSS</span>
+                            <span class="project-tag">Tailwind CSS</span>
+                            <span class="project-tag">Front-end Development</span>
+                        </div>
+                    </div>
+
+                    <!-- Cloud Platforms -->
+                    <div class="project-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-4" style="font-family: 'Orbitron', sans-serif; color: var(--blue-accent);">
+                            CLOUD PLATFORMS
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="project-tag">Google Cloud Platform</span>
+                            <span class="project-tag">IBM Cloud</span>
+                            <span class="project-tag">IBM Watson</span>
+                        </div>
+                    </div>
+
+                    <!-- Databases -->
+                    <div class="project-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-4" style="font-family: 'Orbitron', sans-serif; color: var(--red-accent);">
+                            DATABASES
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="project-tag">PostgreSQL</span>
+                            <span class="project-tag">MongoDB</span>
+                        </div>
+                    </div>
+
+                    <!-- Tools & Frameworks -->
+                    <div class="project-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-4" style="font-family: 'Orbitron', sans-serif; color: var(--blue-accent);">
+                            TOOLS & FRAMEWORKS
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="project-tag">Git</span>
+                            <span class="project-tag">GitHub</span>
+                            <span class="project-tag">Docker</span>
+                            <span class="project-tag">Jupyter</span>
+                            <span class="project-tag">VS Code</span>
+                            <span class="project-tag">Looker Studio</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Links -->
+                <div class="mt-16 text-center">
+                    <h3 class="text-2xl font-bold mb-8" style="font-family: 'Orbitron', sans-serif;">
+                        ◈ SECURE CHANNELS ◈
+                    </h3>
+                    <div class="flex justify-center gap-6 flex-wrap">
+                        <a href="https://github.com/KrishnaSrinivas-24" target="_blank" class="cta-button">
+                            GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/krishna-srinivas-madhira/" target="_blank" class="cta-button">
+                            LinkedIn
+                        </a>
+                        <a href="mailto:krishnasrinivas2409@gmail.com" class="cta-button">
+                            Email
+                        </a>
+                        <a href="tel:+919866430481" class="cta-button">
+                            Phone
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-black">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-8" style="font-family: 'Orbitron', sans-serif; background: linear-gradient(135deg, var(--red-accent), var(--blue-accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    ◈ ESTABLISH CONTACT ◈
+                </h2>
+                <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+                    Authorized personnel may establish secure communication channels. 
+                    All transmissions are encrypted.
+                </p>
+                <a href="mailto:krishnasrinivas2409@gmail.com" class="cta-button">
+                    INITIATE CONTACT
+                </a>
+                <div class="security-badge mt-8" style="display: inline-block;">
+                    SECURE CHANNEL: ENCRYPTED
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-8 border-t-2 border-red-900 bg-black">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <p class="text-gray-500 text-sm" style="font-family: 'Orbitron', sans-serif;">
+                    © 2024 MKS | OPERATIVE PROFILE | MARK 85 PROTOCOL ACTIVE
+                </p>
+                <p class="text-gray-600 text-xs mt-2">
+                    Protected by nanotech-level encryption :: Mark 85 Security Suite
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Security Clearance & Shield Opening Sequence
+        document.addEventListener('DOMContentLoaded', function() {
+            const accessButton = document.getElementById('accessButton');
+            const skipIntro = document.getElementById('skipIntro');
+            const securityOverlay = document.getElementById('securityOverlay');
+            const shieldContainer = document.getElementById('shieldContainer');
+            const shieldLogo = document.getElementById('shieldLogo');
+            const mainContent = document.getElementById('mainContent');
+            const nanoparticlesContainer = document.getElementById('nanoparticles');
+            let sequenceStarted = false;
+
+            // Create Nanoparticles
+            function createNanoparticles(count) {
+                nanoparticlesContainer.innerHTML = ''; // Clear existing particles
+                for (let i = 0; i < count; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'nanoparticle';
+                    
+                    const angle = (Math.PI * 2 * i) / count;
+                    const radius = 200;
+                    const x = Math.cos(angle) * radius;
+                    const y = Math.sin(angle) * radius;
+                    
+                    particle.style.left = 'calc(50% + ' + x + 'px)';
+                    particle.style.top = 'calc(50% + ' + y + 'px)';
+                    particle.style.opacity = '0';
+                    
+                    nanoparticlesContainer.appendChild(particle);
+                    
+                    // Animate particle flying in
+                    setTimeout(function(p) {
+                        return function() {
+                            p.style.transition = 'all 1s ease-out';
+                            p.style.left = '50%';
+                            p.style.top = '50%';
+                            p.style.opacity = '1';
+                        };
+                    }(particle), i * 15);
+                }
+            }
+
+            function startSequence() {
+                if (sequenceStarted) return;
+                sequenceStarted = true;
+                
+                // Hide security overlay
+                securityOverlay.style.transition = 'opacity 0.5s ease';
+                securityOverlay.style.opacity = '0';
+                setTimeout(function() {
+                    securityOverlay.style.display = 'none';
+                }, 500);
+                
+                // Create nanoparticles
+                createNanoparticles(80);
+                
+                // Open shield after particles form
+                setTimeout(function() {
+                    shieldLogo.classList.add('shield-opening');
+                    
+                    // Hide shield and show main content
+                    setTimeout(function() {
+                        shieldContainer.style.transition = 'opacity 0.8s ease';
+                        shieldContainer.style.opacity = '0';
+                        setTimeout(function() {
+                            shieldContainer.style.display = 'none';
+                            mainContent.classList.add('visible');
+                        }, 800);
+                    }, 1500);
+                }, 1000);
+            }
+
+            function skipToMain() {
+                if (sequenceStarted) return;
+                sequenceStarted = true;
+                
+                // Immediate transition
+                securityOverlay.style.transition = 'opacity 0.3s ease';
+                securityOverlay.style.opacity = '0';
+                shieldContainer.style.transition = 'opacity 0.3s ease';
+                shieldContainer.style.opacity = '0';
+                
+                setTimeout(function() {
+                    securityOverlay.style.display = 'none';
+                    shieldContainer.style.display = 'none';
+                    mainContent.classList.add('visible');
+                }, 300);
+            }
+
+            // Access Button Click
+            if (accessButton) {
+                accessButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    startSequence();
+                });
+            }
+
+            // Skip intro click
+            if (skipIntro) {
+                skipIntro.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    skipToMain();
+                });
+            }
+
+            // Click anywhere on overlay to skip
+            if (securityOverlay) {
+                securityOverlay.addEventListener('click', function(e) {
+                    if (e.target === securityOverlay) {
+                        skipToMain();
+                    }
+                });
+            }
+
+            // Auto-start after 4 seconds if user doesn't interact
+            setTimeout(function() {
+                if (!sequenceStarted) {
+                    startSequence();
+                }
+            }, 4000);
+
+            // Smooth Scroll
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
